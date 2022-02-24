@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Header } from '../../Components/Header'
+
 export const Login = () => {
-    return <h1>Hello World</h1>
+    return <Header />
 }
