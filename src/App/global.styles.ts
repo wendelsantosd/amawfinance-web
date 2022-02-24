@@ -15,9 +15,13 @@ export const GlobalStyle = createGlobalStyle`
         --white: #FFFFFF;
         --background: #FAF6F4;
 
+        --black-300: #3F4A5B;
         --black-500: #454149;
 
         --grey-300: #6F8AA5;
+        --grey-400: #6D7B8C;
+
+        --red-600: #B22222;
     }
 
     html {
