@@ -16,10 +16,12 @@ export const GlobalStyle = createGlobalStyle`
         --background: #FAF6F4;
         
         --white-300: #DDDADA;
+        --white-400: #F4F4F6;        
         --white-600: #F8F8F8;
         
         --black-300: #3F4A5B;
         --black-500: #454149;
+        --black-600: #323233;
         
         --grey-300: #6F8AA5;
         --grey-400: #6D7B8C;

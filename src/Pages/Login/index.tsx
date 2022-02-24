@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
 
 import { Header } from '../../Components/Header'
 import { PrimaryButton } from '../../styles/utils.styles'
-import { Container, Form } from './login.style'
+import { Container, Form, GoogleButton } from './login.style'
 
 
 export const Login = () => {
@@ -45,15 +46,21 @@ export const Login = () => {
                 }
             </div>
 
+            <p className='question'>Esqueceu sua senha? <span>Clique aqui.</span></p>
+
             <PrimaryButton
                 type='submit'
             >
                 ENTRAR
             </PrimaryButton>
 
-            <button>
-                ENTRAR COM A GOOGLE
-            </button>
+            <GoogleButton>
+                <button>
+                    ENTRAR COM A GOOGLE
+                </button>
+
+                <FcGoogle className='google-icon' />
+            </GoogleButton>
         </Form>
     </Container>
 }
