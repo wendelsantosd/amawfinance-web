@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 import { Header } from '../../Components/Header'
+import { PrimaryButton } from '../../styles/utils.styles'
 import { Container, Form } from './login.style'
 
 
@@ -44,11 +45,11 @@ export const Login = () => {
                 }
             </div>
 
-            <button
+            <PrimaryButton
                 type='submit'
             >
                 ENTRAR
-            </button>
+            </PrimaryButton>
 
             <button>
                 ENTRAR COM A GOOGLE

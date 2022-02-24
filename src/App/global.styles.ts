@@ -25,6 +25,8 @@ export const GlobalStyle = createGlobalStyle`
         --grey-400: #6D7B8C;
 
         --red-600: #B22222;
+
+        --blue-500: #0C6FF9;
     }
 
     html {
