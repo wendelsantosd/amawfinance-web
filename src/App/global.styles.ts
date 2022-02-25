@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle`
         --background: #FAF6F4;
         
         --white-300: #DDDADA;
+        --white-350: #F2F2F2;
         --white-400: #F4F4F6;        
         --white-600: #F8F8F8;
         
@@ -28,6 +29,7 @@ export const GlobalStyle = createGlobalStyle`
 
         --red-600: #B22222;
 
+        --blue-transparent: rgba(0, 114, 229, 0.2);
         --blue-500: #0C6FF9;
     }
 

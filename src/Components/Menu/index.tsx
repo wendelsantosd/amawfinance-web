@@ -1,9 +1,22 @@
 import React from 'react'
+import { AiFillDollarCircle } from 'react-icons/ai'
+import { IoPerson } from 'react-icons/io5'
+import { MdInsertChart, MdLogout } from 'react-icons/md'
 
-import { Container } from './menu.styles'
+import { Container, Option } from './menu.styles'
 
-export const Menu = () => {
+interface MenuProps {
+    page: string
+}
+
+export const Menu = ({ page }: MenuProps) => {
+    console.log(page === 'profile')
     return <Container>
-        <p>Hello World !</p>
+        <Option
+            isActive={page === 'profile'}
+        >
+            <IoPerson className='icon-belongs-menu'/>
+            <p>Dados Pessoais</p>
+        </Option>
     </Container>
 }

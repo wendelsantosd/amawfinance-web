@@ -7,6 +7,6 @@ import { Container } from './profile.styles'
 export const Profile = () => {
     return <Container>
         <Header isAuth/>
-        <Menu />
+        <Menu page={'profile'}/>
     </Container>
 }

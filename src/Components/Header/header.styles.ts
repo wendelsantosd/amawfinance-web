@@ -8,6 +8,7 @@ export const Container = styled.header`
     width: 100vw;
     padding: 0.7rem;
     border-bottom: 1px solid var(--grey-300);
+    overflow-y: hidden;
 `
 
 export const DataLogo = styled.div`
