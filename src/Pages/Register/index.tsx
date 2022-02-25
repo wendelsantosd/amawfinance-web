@@ -60,7 +60,7 @@ export const Register = () => {
                 <ContainerPasswordInput>
                     <input
                         id='confirm-password'
-                        placeholder='Senha'
+                        placeholder='Confirmar Senha'
                         type={showPassword ? 'text' : 'password'}
                         className='input-password'
                     />
