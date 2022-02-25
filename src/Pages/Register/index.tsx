@@ -3,35 +3,32 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
 import { Header } from '../../Components/Header'
-import { PrimaryButton } from '../../styles/utils.styles'
-import { Container, Form } from './register.style'
+import { ContainerPasswordInput, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion, Form, PrimaryContainer } from '../../styles/utils.styles'
 
 
 export const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
 
-    return <Container>
+    return <PrimaryContainer>
         <Header />
         <Form className='animate-up'>
-            <p className='title'>Registre-se</p>
+            <TextHeaderForm>Registre-se</TextHeaderForm>
 
             <label htmlFor='name' className='sr-only'>Nome</label>
-            <input
+            <PrimaryInput
                 id='name'
                 placeholder='Nome'
-                className='input-email'
             />
             
             <label htmlFor='email' className='sr-only'>E-mail</label>
-            <input
+            <PrimaryInput
                 id='email'
                 placeholder='E-mail'
-                className='input-email'
             />
 
             <label htmlFor='password' className='sr-only'>Senha</label>
-            <div className='container-input-password'>
+            <ContainerPasswordInput>
                 <input
                     id='password'
                     placeholder='Senha'
@@ -50,10 +47,10 @@ export const Register = () => {
                         onClick={() => setShowPassword(true)}
                     />
                 }
-            </div>
+            </ContainerPasswordInput>
 
             <label htmlFor='confirm-password' className='sr-only'>Confirmar senha</label>
-            <div className='container-input-password'>
+            <ContainerPasswordInput>
                 <input
                     id='confirm-password'
                     placeholder='Senha'
@@ -72,7 +69,7 @@ export const Register = () => {
                         onClick={() => setShowPassword(true)}
                     />
                 }
-            </div>
+            </ContainerPasswordInput>
 
             <PrimaryButton
                 type='submit'
@@ -80,9 +77,9 @@ export const Register = () => {
                 REGISTRAR
             </PrimaryButton>
 
-            <p className='question'>Já tem uma conta? 
-                <span onClick={() => navigate('/')}>Clique aqui.</span>
-            </p>
+            <TextQuestion className='question'>Já tem uma conta? 
+                <span onClick={() => navigate('/')}> Clique aqui.</span>
+            </TextQuestion>
         </Form>
-    </Container>
+    </PrimaryContainer>
 }
