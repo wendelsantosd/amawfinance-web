@@ -48,7 +48,7 @@ export const Login = () => {
                 }
             </ContainerPasswordInput>
 
-            <TextQuestion className='question'>Esqueceu sua senha? <span>Clique aqui.</span></TextQuestion>
+            <TextQuestion className='question'>Esqueceu sua senha? <span onClick={() => navigate('/recover-password')}>Clique aqui.</span></TextQuestion>
 
             <PrimaryButton
                 type='submit'
