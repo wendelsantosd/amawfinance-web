@@ -1,31 +1,33 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
+import { useNavigate } from 'react-router-dom'
 
 import { Header } from '../../Components/Header'
-import { PrimaryButton } from '../../styles/utils.styles'
-import { Container, Form, GoogleButton } from './login.style'
+import { ContainerPasswordInput, Form, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
+import { Container, GoogleButton } from './login.style'
+
 
 
 export const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate()
 
     return <Container>
         <Header />
         <Form className='animate-up'>
-            <p className='title'>Entrar</p>
-            <p className='question'>Não tem uma conta? <span>Clique aqui.</span></p>
+            <TextHeaderForm className='title'>Entrar</TextHeaderForm>
+            <TextQuestion className='question'>Não tem uma conta? <span onClick={() => navigate('/register')}>Clique aqui.</span></TextQuestion>
 
             <label htmlFor='email' className='sr-only'>E-mail</label>
-            <input
+            <PrimaryInput
                 id='email'
                 placeholder='E-mail'
                 className='input-email'
             />
 
             <label htmlFor='password' className='sr-only'>Senha</label>
-
-            <div className='container-input-password'>
+            <ContainerPasswordInput className='container-input-password'>
                 <input
                     id='password'
                     placeholder='Senha'
@@ -44,9 +46,9 @@ export const Login = () => {
                         onClick={() => setShowPassword(true)}
                     />
                 }
-            </div>
+            </ContainerPasswordInput>
 
-            <p className='question'>Esqueceu sua senha? <span>Clique aqui.</span></p>
+            <TextQuestion className='question'>Esqueceu sua senha? <span>Clique aqui.</span></TextQuestion>
 
             <PrimaryButton
                 type='submit'
