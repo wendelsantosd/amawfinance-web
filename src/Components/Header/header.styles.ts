@@ -10,6 +10,8 @@ export const Container = styled.header`
 export const DataLogo = styled.div`
     display: flex;
     align-items: center;
+    width: fit-content;
+    cursor: pointer;
 
     img {
         height: 3rem;
