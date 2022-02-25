@@ -13,7 +13,7 @@ export const Register = () => {
     const navigate = useNavigate()
 
     return <PrimaryContainer>
-        <Header />
+        <Header isAuth={false}/>
         {successRegister ?
             <MessageSendEmail 
                 type='register'

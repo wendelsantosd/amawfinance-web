@@ -11,7 +11,7 @@ export const RecoverPassword = () => {
     const [successRecover, setSuccessRecover] = useState(false)
 
     return <PrimaryContainer>
-        <Header />
+        <Header isAuth={false} />
         {successRecover ?
             <MessageSendEmail 
                 type='recover'

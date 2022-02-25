@@ -14,7 +14,7 @@ export const Login = () => {
     const navigate = useNavigate()
 
     return <PrimaryContainer>
-        <Header />
+        <Header isAuth={false} />
         <Form className='animate-up'>
             <TextHeaderForm className='title'>Entrar</TextHeaderForm>
             <TextQuestion className='question'>Não tem uma conta? <span onClick={() => navigate('/register')}>Clique aqui.</span></TextQuestion>

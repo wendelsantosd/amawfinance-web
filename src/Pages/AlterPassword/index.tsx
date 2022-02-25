@@ -7,7 +7,7 @@ import { ContainerPasswordInput, Form, PrimaryButton, PrimaryContainer, TextHead
 export const AlterPassword = () => {
     const [showPassword, setShowPassword] = useState(false)
     return <PrimaryContainer>
-        <Header />
+        <Header isAuth={false}/>
         <Form>
             <TextHeaderForm>Alterar Senha</TextHeaderForm>
 

@@ -19,7 +19,7 @@ export const MessageSendEmail = ({ type }: MessageSendEmailProps ) => {
         {type === 'register' ?
             <>
                 <p>
-            Conta Criada com sucesso!
+            Conta criada com sucesso!
                 </p>
                 <p>
             Confirme seu e-mail para fazer login.
