@@ -4,8 +4,8 @@ import { FcGoogle } from 'react-icons/fc'
 import { useNavigate } from 'react-router-dom'
 
 import { Header } from '../../Components/Header'
-import { ContainerPasswordInput, Form, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
-import { Container, GoogleButton } from './login.style'
+import { ContainerPasswordInput, Form, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
+import { GoogleButton } from './login.style'
 
 
 
@@ -13,7 +13,7 @@ export const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
 
-    return <Container>
+    return <PrimaryContainer>
         <Header />
         <Form className='animate-up'>
             <TextHeaderForm className='title'>Entrar</TextHeaderForm>
@@ -64,5 +64,5 @@ export const Login = () => {
                 <FcGoogle className='google-icon' />
             </GoogleButton>
         </Form>
-    </Container>
+    </PrimaryContainer>
 }
