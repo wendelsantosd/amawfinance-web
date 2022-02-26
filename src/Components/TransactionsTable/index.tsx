@@ -17,7 +17,7 @@ export const TransactionsTable = () => {
             amount: 1000,
             type: 'expense',
             date: new Date('2022-02-12 09:00:00')
-        },
+        }
     ])
 
     return <Container>
@@ -35,6 +35,7 @@ export const TransactionsTable = () => {
                     <tr key={transaction.id}>
                         <td>{transaction.description}</td>
                         <td className={transaction.type}>
+                            {transaction.type === 'expense' ? '- ' : null}
                             {new Intl.NumberFormat('pt-BR', {
                                 style: 'currency',
                                 currency: 'BRL'
