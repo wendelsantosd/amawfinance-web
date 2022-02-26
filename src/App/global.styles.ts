@@ -102,7 +102,7 @@ export const GlobalStyle = createGlobalStyle`
         align-items: center;
         justify-content: center;
 
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.6);
 
         position: fixed;
         top: 0;
