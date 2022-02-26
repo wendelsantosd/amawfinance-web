@@ -19,28 +19,33 @@ export const Board = styled.div`
     width: 100%;
 `
 
-export const Form = styled.form`
+export const Search = styled.div`
     display: flex;
-    flex-direction: column;
-    margin-top: 2rem;
-    width: 22rem;
+    align-items: center;
+    width: 30rem;
 
     label {
         font-weight: 600;
         font-size: 0.8rem;
         color: var(--grey-300);
         margin-bottom: 0.2rem;
+        margin-right: 0.5rem;
+
+        &:nth-child(3) {
+            margin-left: 1rem;
+        }
     }
 
-    input {
-        border: 3px solid var(--white-300);
+    select {
+        border: 2px solid var(--white-300);
         border-radius: 0.3rem;
-        height: 2.2rem;
-        font-size: 1rem;
+        height: 1.4rem;
+        width: 7rem;
+        font-size: 0.8rem;
         color: var(--grey-300);
         font-weight: 600;
-        padding-left: 0.3rem;
-        margin-bottom: 1.2rem;
+        background: var(--white);
+        cursor: pointer;
 
         ::placeholder {
             color: var(--grey-300);
@@ -49,15 +54,16 @@ export const Form = styled.form`
     }
 
     button {
-        height: 2.2rem;
+        height: 1.4rem;
         border-radius: 2.5rem;
+        width: 4rem;
         border: none;
         background: var(--blue-500);
         font-weight: 600;
-        font-size: 0.9rem;
-        letter-spacing: 2px;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
         color: var(--white);
-        margin-bottom: 4rem;
+        margin-left: 1rem;
 
         transition: filter 0.5s ease;
 
