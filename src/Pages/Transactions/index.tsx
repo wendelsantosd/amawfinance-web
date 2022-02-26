@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
 import { Summary } from '../../Components/Summary'
+import { TransactionsTable } from '../../Components/TransactionsTable'
 import { Board, Column, Contain, Container, Content, Divider, Search } from './transactions.styles'
 
 export const Transactions = () => {
@@ -59,7 +60,7 @@ export const Transactions = () => {
                 <Divider />
                 <Board>
                     <Contain>
-                        
+                        <TransactionsTable />
                     </Contain>
                 </Board>
             </Column>
