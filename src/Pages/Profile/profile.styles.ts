@@ -37,7 +37,7 @@ export const ProfilePicture = styled.div`
         z-index: 1;
         color: var(--blue-500);
         bottom: 1.1rem;
-        right: 0.3rem;
+        right: 0.6rem;
         cursor: pointer;
         transition: filter 0.25s ease;
 
