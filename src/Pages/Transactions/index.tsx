@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
 import { Summary } from '../../Components/Summary'
-import { Board, Container, Content, Search } from './transactions.styles'
+import { Board, Contain, Container, Content, Search } from './transactions.styles'
 
 export const Transactions = () => {
     const [currentMonth] = useState(new Date().getMonth())
@@ -17,38 +17,43 @@ export const Transactions = () => {
         <Content>
             <Menu page={'transactions'}/>
             <Board>
-                <Search>
-                    <label htmlFor='month'>Mês:</label>
-                    <select id='month'>
-                        {months.map((month, index) => 
-                            <option 
-                                key={month} 
-                                value={index}
-                                selected={currentMonth === index ? true : false}
-                            >
-                                {month}
-                            </option>
-                        )}
-                    </select>
+                <Contain>
+                    <Search>
+                        <label htmlFor='month'>Mês:</label>
+                        <select id='month'>
+                            {months.map((month, index) => 
+                                <option 
+                                    key={month} 
+                                    value={index}
+                                    selected={currentMonth === index ? true : false}
+                                >
+                                    {month}
+                                </option>
+                            )}
+                        </select>
 
-                    <label htmlFor='year'>Ano:</label>
-                    <select id='year'>
-                        {years.map(year => 
-                            <option 
-                                key={year} 
-                                value={year}
-                                selected={String(currentYear) === year ? true : false}
-                            >
-                                {year}
-                            </option>
-                        )}
-                    </select>
+                        <label htmlFor='year'>Ano:</label>
+                        <select id='year'>
+                            {years.map(year => 
+                                <option 
+                                    key={year} 
+                                    value={year}
+                                    selected={String(currentYear) === year ? true : false}
+                                >
+                                    {year}
+                                </option>
+                            )}
+                        </select>
 
-                    <button>
+                        <button>
                         BUSCAR
+                        </button>
+                    </Search>
+                    <Summary />
+                    <button className='btn-new-transaction'>
+                        NOVA TRANSAÇÃO
                     </button>
-                </Search>
-                <Summary />
+                </Contain>
             </Board>
         </Content>
     </Container>

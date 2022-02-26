@@ -17,13 +17,42 @@ export const Board = styled.div`
     padding: 2rem;
     background: var(--white);
     width: 100%;
+    height: fit-content;
+`
+
+export const Contain = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 1120px;
+
+    @media (max-width: 1200px) {
+        width: 900px;
+    }
+
+    .btn-new-transaction {
+        height: 2rem;
+        border-radius: 2.5rem;
+        width: 10rem;
+        border: none;
+        background: var(--blue-500);
+        font-weight: 600;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        color: var(--white);
+        margin-top: 2rem;
+        transition: filter 0.5s ease;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
 `
 
 export const Search = styled.div`
     display: flex;
     align-items: center;
     width: 30rem;
-    margin-bottom: 6rem;
+    margin: 0 auto 6rem auto;
 
     label {
         font-weight: 600;

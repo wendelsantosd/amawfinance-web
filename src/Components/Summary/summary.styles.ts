@@ -2,8 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     display: flex;
-    width: 70%;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 1rem;
 `
 
