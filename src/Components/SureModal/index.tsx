@@ -2,15 +2,14 @@ import React from 'react'
 import Modal from 'react-modal'
 
 import CloseIcon from '../../assets/icons/close.svg'
-import IncomeIcon from '../../assets/icons/income.svg'
-import ExpenseIcon from '../../assets/icons/outcome.svg'
+import { Container } from './sureModal.styles'
 
 interface NewTransactionModalProps {
     isOpen: boolean
     onRequestClose: () => void
 }
 
-export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) => {
+export const SureModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) => {
     return <Modal
         isOpen={isOpen}
         onRequestClose={onRequestClose}
@@ -23,5 +22,13 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
         >
             <img src={CloseIcon} alt='Ícone de fechar' />
         </button>
+        <Container>
+            <h2>Você tem certeza ?</h2>
+
+            <div>
+                <button className='yes'>Sim</button>
+                <button className='no'>Não</button>
+            </div>
+        </Container>
     </Modal>
 }
