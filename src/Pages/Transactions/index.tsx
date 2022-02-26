@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
+import { Summary } from '../../Components/Summary'
 import { Board, Container, Content, Search } from './transactions.styles'
 
 export const Transactions = () => {
@@ -47,6 +48,7 @@ export const Transactions = () => {
                         BUSCAR
                     </button>
                 </Search>
+                <Summary />
             </Board>
         </Content>
     </Container>

@@ -23,6 +23,7 @@ export const Search = styled.div`
     display: flex;
     align-items: center;
     width: 30rem;
+    margin-bottom: 6rem;
 
     label {
         font-weight: 600;
