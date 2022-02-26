@@ -5,6 +5,14 @@ export const Container = styled.div`
     flex-direction: column;
 `
 
+export const Column = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem;
+    width: 100%;
+`
+
 export const Content = styled.div`
     display: flex;
 `
@@ -13,11 +21,11 @@ export const Board = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem;
     padding: 2rem;
     background: var(--white);
     width: 100%;
     height: fit-content;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 
 export const Contain = styled.div`
@@ -101,4 +109,10 @@ export const Search = styled.div`
             filter: brightness(0.9);
         }
     }
+`
+
+export const Divider = styled.div`
+    height: 1.5rem;
+    width: 100%;
+    background: transparent;
 `
