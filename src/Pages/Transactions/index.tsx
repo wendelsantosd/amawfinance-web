@@ -3,19 +3,29 @@ import React, { useState } from 'react'
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
 import { Summary } from '../../Components/Summary'
+import { TransactionModal } from '../../Components/TransactionModal'
 import { TransactionsTable } from '../../Components/TransactionsTable'
 import { Board, Column, Contain, Container, Content, Divider, Search } from './transactions.styles'
 
 export const Transactions = () => {
     const [currentMonth] = useState(new Date().getMonth())
     const [currentYear] = useState(new Date().getFullYear())
+    const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false)
 
     const [months] = useState(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'])
     const [years] = useState(['2021', '2022', '2023', '2024', '2025'])
 
+    const handleCloseTransactionModal = () => {
+        setIsTransactionModalOpen(false)
+    }
+
     return <Container>
         <Header isAuth/>
         <Content>
+            <TransactionModal 
+                isOpen={isTransactionModalOpen}
+                onRequestClose={handleCloseTransactionModal}
+            />
             <Menu page={'transactions'}/>
             <Column>
                 <Board>
@@ -52,8 +62,11 @@ export const Transactions = () => {
                             </button>
                         </Search>
                         <Summary />
-                        <button className='btn-new-transaction'>
-                        NOVA TRANSAÇÃO
+                        <button 
+                            className='btn-new-transaction'
+                            onClick={() => setIsTransactionModalOpen(true)}
+                        >
+                            NOVA TRANSAÇÃO
                         </button>
                     </Contain>
                 </Board>
