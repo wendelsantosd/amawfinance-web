@@ -1,10 +1,21 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    position: relative;
     height: 100vh;
     width: 12rem;
     background: var(--white);
     padding-top: 2rem;
+
+    .text-amaw {
+        position: absolute;
+        bottom: 2%;
+        font-weight: 700;
+        font-size: 0.7rem;
+        color: var(--grey-300);
+        width: 100%;
+        text-align: center;
+    }
 `
 
 interface OptionProps {
@@ -13,7 +24,7 @@ interface OptionProps {
 
 export const Option = styled.div<OptionProps>`
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     font-size: 1rem;        
     width: 100%;
     padding: 1rem;
