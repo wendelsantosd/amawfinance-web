@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: relative;
-    height: 100vh;
     width: 14rem;
     background: var(--white);
     padding-top: 2rem;

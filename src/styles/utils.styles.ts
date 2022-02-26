@@ -13,6 +13,7 @@ export const TextHeaderForm = styled.p`
     font-size: 1.5rem;
     margin-bottom: 1.2rem;
 `
+
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -52,6 +53,7 @@ export const PrimaryInput = styled.input`
     width: 22rem;
     margin: 1rem;
     font-size: 1rem;
+    color: var(--grey-300);
     border: 3px solid var(--white-300);
     border-radius: 0.5rem;
     padding-left: 0.5rem;
@@ -63,43 +65,43 @@ export const PrimaryInput = styled.input`
 `
 
 export const ContainerPasswordInput = styled.div`
-     position: relative;
-        display: flex;
-        align-items: center;
-        height: 3rem;
-        width: 22rem;
-        margin: 1rem;
-        border: 3px solid var(--white-300);
-        border-radius: 0.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    width: 22rem;
+    margin: 1rem;
+    border: 3px solid var(--white-300);
+    border-radius: 0.5rem;
 
-        .input-password {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: none;
-            font-size: 1rem;
-            padding-left: 0.5rem;
+    .input-password {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-size: 1rem;
+        padding-left: 0.5rem;
 
-            ::placeholder {
-                color: var(--grey-300);
-                font-weight: 600;
-            }
+        ::placeholder {
+            color: var(--grey-300);
+            font-weight: 600;
+        }
             
         }
 
-        .eye-icon {
-            position: absolute;
-            right: 1rem;
-            font-size: 1.2rem;
-            color: var(--grey-300);
-            cursor: pointer;
+    .eye-icon {
+        position: absolute;
+        right: 1rem;
+        font-size: 1.2rem;
+        color: var(--grey-300);
+        cursor: pointer;
 
-            transition: filter 0.5s;
+        transition: filter 0.5s;
 
-            &:hover {
-                filter: brightness(0.8);
-            }
+        &:hover {
+            filter: brightness(0.8);
         }
+    }
 `
 
 export const TextQuestion = styled.p`
