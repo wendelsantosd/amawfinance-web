@@ -70,6 +70,16 @@ export const PrimaryInput = styled.input`
         color: var(--grey-300);
         font-weight: 600;
     }
+
+    &.error {
+        border: 3px solid var(--red-300);
+    }
+`
+export const ErrorMessage = styled.p`
+    color: var(--red-300);
+    font-size: 0.8rem;
+    width: 22rem;
+    margin-top: -0.5rem;
 `
 
 export const ContainerPasswordInput = styled.div`
@@ -81,6 +91,10 @@ export const ContainerPasswordInput = styled.div`
     margin: 1rem;
     border: 3px solid var(--white-300);
     border-radius: 0.5rem;
+
+    &.error {
+        border: 3px solid var(--red-300);
+    }
 
     .input-password {
         position: absolute;
@@ -94,8 +108,7 @@ export const ContainerPasswordInput = styled.div`
             color: var(--grey-300);
             font-weight: 600;
         }
-            
-        }
+    }
 
     .eye-icon {
         position: absolute;

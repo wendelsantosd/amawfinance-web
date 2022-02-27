@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
 import { Header } from '../../Components/Header'
-import { ContainerPasswordInput, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
+import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
 import { GoogleButton } from './login.style'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -20,13 +20,37 @@ export const Login = () => {
         email: '',
         password: ''
     })
+    
+    const [errorMessageEmail, setErrorMessageEmail] = useState('')
+    const [errorMessagePassword, setErrorMessagePassword] = useState('')
 
     const navigate = useNavigate()
 
+    const validate = () => {
+        let _validateEmail = false
+        let _validatePassword = false
+
+        if (credentials.email === '' || credentials.email.length < 6 || !credentials.email.includes('@')) {
+            setErrorMessageEmail('Preencha corretamente.')
+        } else {
+            setErrorMessageEmail('')
+            _validateEmail = true
+        }
+
+        if (credentials.password === '' || credentials.password.length < 6) {
+            setErrorMessagePassword('Preencha corretamente.')
+        } else {
+            setErrorMessagePassword('')
+            _validatePassword = true
+        }
+
+        return _validateEmail && _validatePassword
+    }
+
     const submit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log(credentials)
-        toast.error('Deu erro')
+        const isValidate = validate()
+        // toast.error('Deu erro')
     }
 
     return <PrimaryContainer>
@@ -50,17 +74,26 @@ export const Login = () => {
             <label htmlFor='email' className='sr-only'>E-mail</label>
             <PrimaryInput
                 id='email'
+                className={errorMessageEmail === '' ? 'input-email' : 'error input-email'}
                 placeholder='E-mail'
-                className='input-email'
                 onChange={event => {
                     const _credentials = credentials
                     _credentials.email = event.target.value
                     setCredentials(_credentials)
                 }}
             />
+            {errorMessageEmail !== '' ?
+                <ErrorMessage>
+                    {errorMessageEmail}
+                </ErrorMessage>
+                :
+                null    
+            }
 
             <label htmlFor='password' className='sr-only'>Senha</label>
-            <ContainerPasswordInput className='container-input-password'>
+            <ContainerPasswordInput 
+                className={errorMessageEmail === '' ? 'container-input-password' : 'error container-input-password'}
+            >
                 <input
                     id='password'
                     placeholder='Senha'
@@ -85,6 +118,13 @@ export const Login = () => {
                     />
                 }
             </ContainerPasswordInput>
+            {errorMessagePassword !== '' ?
+                <ErrorMessage>
+                    {errorMessagePassword}
+                </ErrorMessage>
+                :
+                null    
+            }
 
             <TextQuestion className='question'>
                 Esqueceu sua senha?
