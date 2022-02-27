@@ -82,7 +82,7 @@ export const Login = () => {
                 }
             } else {
                 setLoading(false)
-                toast.error('Usuário ou senha incorretas')
+                toast.error('Usuário ou senha incorretas.')
             }
         }
     }
