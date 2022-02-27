@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
 import { Header } from '../../Components/Header'
+import api from '../../services/api'
 import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
 import { GoogleButton } from './login.style'
 
@@ -49,8 +50,37 @@ export const Login = () => {
 
     const submit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const isValidate = validate()
-        // toast.error('Deu erro')
+        const isValid= validate()
+
+        if (isValid) {
+            setLoading(true)
+
+            const result = await api.request({
+                method: 'post',
+                route: '/user/auth',
+                body: credentials
+            })
+
+            if (result?.status === 200) {
+                const response = await api.request({
+                    method: 'get',
+                    route: '/user/data',
+                    query: {
+                        id: result.data?.id
+                    }
+                })
+
+                if (response?.status === 200) {
+                    navigate('/transactions')
+                } else {
+                    setLoading(false)
+                    toast.error('Não foi possível obter dados.')
+                }
+            } else {
+                setLoading(false)
+                toast.error('Usuário ou senha incorretas')
+            }
+        }
     }
 
     return <PrimaryContainer>
@@ -92,7 +122,7 @@ export const Login = () => {
 
             <label htmlFor='password' className='sr-only'>Senha</label>
             <ContainerPasswordInput 
-                className={errorMessageEmail === '' ? 'container-input-password' : 'error container-input-password'}
+                className={errorMessagePassword === '' ? 'container-input-password' : 'error container-input-password'}
             >
                 <input
                     id='password'

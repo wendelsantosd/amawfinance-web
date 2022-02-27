@@ -79,3 +79,8 @@ export const request = async ({
         }
     }
 }
+
+export default {
+    baseURL,
+    request
+}
