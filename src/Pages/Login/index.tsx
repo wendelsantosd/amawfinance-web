@@ -208,7 +208,8 @@ export const Login = () => {
                     event.preventDefault()
                     submit()
                 }}
-            >   {loading ?
+            >  
+                {loading ?
                     <Loading>
                         <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'}  />
                     </Loading>

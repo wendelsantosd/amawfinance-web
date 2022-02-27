@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import  ReactLoading from 'react-loading'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
 import { Header } from '../../Components/Header'
 import { MessageSendEmail } from '../../Components/MessageSendEmail'
-import { ContainerPasswordInput, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion, Form, PrimaryContainer, ErrorMessage } from '../../styles/utils.styles'
+import { ContainerPasswordInput, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion, Form, PrimaryContainer, ErrorMessage, Loading } from '../../styles/utils.styles'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 
 export const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [successRegister, setSuccessRegister] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -66,6 +70,10 @@ export const Register = () => {
 
     const submit = () => {
         const isValid = validate()
+
+        if (isValid) {
+            console.log('ok')
+        }
     }
     return <PrimaryContainer>
         <ToastContainer
@@ -195,12 +203,24 @@ export const Register = () => {
                         event.preventDefault()
                         submit()
                     }}
+                    disabled={loading}
                 >
-                    REGISTRAR
+                    {loading ?
+                        <Loading>
+                            <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'}  />
+                        </Loading>
+                        :
+                        'REGISTRAR'
+                    }
                 </PrimaryButton>
 
-                <TextQuestion className='question'>Já tem uma conta? 
-                    <span onClick={() => navigate('/')}> Clique aqui.</span>
+                <TextQuestion className='question'>
+                    Já tem uma conta?
+                    <span onClick={() => {
+                        if (!loading) navigate('/')
+                    }}>
+                        {' Clique aqui.'}
+                    </span>
                 </TextQuestion>
             </Form>
         }
