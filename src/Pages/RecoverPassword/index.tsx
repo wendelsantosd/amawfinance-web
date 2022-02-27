@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import { Header } from '../../Components/Header'
 import { MessageSendEmail } from '../../Components/MessageSendEmail'
+import api from '../../services/api'
 import { ErrorMessage, Form, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -30,6 +31,19 @@ export const RecoverPassword = () => {
 
     const submit = async () => {
         const isValid = validate()
+
+        if (isValid) {
+            await api.request({
+                method: 'get',
+                route: '/user/recover-password',
+                query: {
+                    email
+                }
+            })
+
+            setSuccessRecover(true)
+            toast.success('E-mail enviado !')
+        }
     }
 
     return <PrimaryContainer>
