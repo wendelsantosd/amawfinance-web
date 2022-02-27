@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import GoogleLogin from 'react-google-login'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import  ReactLoading from 'react-loading'
@@ -83,6 +84,38 @@ export const Login = () => {
                 setLoading(false)
                 toast.error('Usuário ou senha incorretas')
             }
+        }
+    }
+
+    const googleSubmit = async (response: any) => {
+        const idToken = response.tokenObj.id_token
+        const name = response.profileObj.name
+
+        const result = await api.request({
+            method: 'get',
+            route: '/user/google-auth',
+            query: {
+                idToken,
+                name
+            }
+        })
+
+        if (result?.status === 200) {
+            const response = await api.request({
+                method: 'get',
+                route: '/user/data',
+                query: {
+                    id: storage.read('id')
+                }
+            })
+
+            if (response?.status === 200) {
+                navigate('/transactions')
+            } else {
+                toast.error('Não foi possível obter dados.')
+            }
+        } else {
+            toast.error('Ocorreu um erro no login com a Google.')
         }
     }
 
@@ -184,15 +217,26 @@ export const Login = () => {
                 }
             </PrimaryButton>
 
-            <GoogleButton>
-                <button
-                    disabled={loading}
-                >
-                    ENTRAR COM A GOOGLE
-                </button>
+            <GoogleLogin
+                clientId='987123219909-tlbchc36o51ahjr96bkbc6rpfekhh4vk.apps.googleusercontent.com'
+                render={renderProps =>
+                    <GoogleButton>
+                        <button
+                            disabled={loading}
+                            onClick={event => {
+                                event.preventDefault()
+                                renderProps.onClick()
+                            }}
+                        >
+                            ENTRAR COM A GOOGLE
+                        </button>
 
-                <FcGoogle className='google-icon' />
-            </GoogleButton>
+                        <FcGoogle className='google-icon' />
+                    </GoogleButton>
+                }
+                onSuccess={googleSubmit}
+                cookiePolicy={'single_host_origin'}
+            />
         </Form>
     </PrimaryContainer>
 }
