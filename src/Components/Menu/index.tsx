@@ -4,6 +4,8 @@ import { IoPerson } from 'react-icons/io5'
 import { MdInsertChart, MdLogout } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 
+import packageInfo from '../../../package.json'
+import storage from '../../services/storage'
 import { Container, Option } from './menu.styles'
 
 interface MenuProps {
@@ -37,12 +39,18 @@ export const Menu = ({ page }: MenuProps) => {
         </Option>
         <Option
             isActive={page === 'logout'}
-            onClick={() => navigate('/')}
+            onClick={() => {
+                storage.clear('all')
+                navigate('/')
+            }}
         >
             <MdLogout className='icon-belongs-menu'/>
             <p>Sair</p>
         </Option>
-
-        <p className='text-amaw'>Amaw Finance 2022</p>
+        
+        <div className='text-amaw-version'>
+            <p>Amaw Finance 2022</p>
+            <p>v.{packageInfo.version}</p>
+        </div>
     </Container>
 }

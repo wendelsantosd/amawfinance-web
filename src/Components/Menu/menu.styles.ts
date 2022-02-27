@@ -7,7 +7,7 @@ export const Container = styled.div`
     background: var(--white);
     padding-top: 2rem;
 
-    .text-amaw {
+    .text-amaw-version {
         position: absolute;
         bottom: 2%;
         font-weight: 700;
