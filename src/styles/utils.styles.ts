@@ -35,6 +35,9 @@ export const Form = styled.form`
 `
 
 export const PrimaryButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 22rem;
     height: 3rem;
     border-radius: 2.5rem;
@@ -123,5 +126,11 @@ export const TextQuestion = styled.p`
         &:hover {
             filter: brightness(0.8);
         }
+    }
+`
+
+export const Loading = styled.div`
+    div {
+        overflow: hidden;
     }
 `
