@@ -27,6 +27,11 @@ export const Form = styled.form`
     background: var(--white);
 
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    @media (max-width: 480px) {
+     background: transparent;
+     box-shadow: 0px 0px 0px;
+    }
 `
 
 export const PrimaryButton = styled.button`
