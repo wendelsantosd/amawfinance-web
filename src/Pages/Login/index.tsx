@@ -140,7 +140,7 @@ export const Login = () => {
             <label htmlFor='email' className='sr-only'>E-mail</label>
             <PrimaryInput
                 id='email'
-                className={errorMessageEmail === '' ? 'input-email' : 'error input-email'}
+                className={errorMessageEmail !== '' ? 'error' : ''}
                 placeholder='E-mail'
                 onChange={event => {
                     const _credentials = credentials
@@ -158,7 +158,7 @@ export const Login = () => {
 
             <label htmlFor='password' className='sr-only'>Senha</label>
             <ContainerPasswordInput 
-                className={errorMessagePassword === '' ? 'container-input-password' : 'error container-input-password'}
+                className={errorMessagePassword !== '' ? 'error' : ''}
             >
                 <input
                     id='password'
