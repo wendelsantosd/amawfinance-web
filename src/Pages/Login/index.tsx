@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import { Header } from '../../Components/Header'
 import api from '../../services/api'
+import storage from '../../services/storage'
 import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
 import { GoogleButton } from './login.style'
 
@@ -38,7 +39,7 @@ export const Login = () => {
             _validateEmail = true
         }
 
-        if (credentials.password === '' || credentials.password.length < 6) {
+        if (credentials.password === '' || credentials.password.length < 4) {
             setErrorMessagePassword('Preencha corretamente.')
         } else {
             setErrorMessagePassword('')
@@ -56,9 +57,12 @@ export const Login = () => {
             setLoading(true)
 
             const result = await api.request({
-                method: 'post',
+                method: 'get',
                 route: '/user/auth',
-                body: credentials
+                query: {
+                    email: credentials.email,
+                    password: credentials.password
+                }
             })
 
             if (result?.status === 200) {
@@ -66,7 +70,7 @@ export const Login = () => {
                     method: 'get',
                     route: '/user/data',
                     query: {
-                        id: result.data?.id
+                        id: storage.read('id')
                     }
                 })
 
