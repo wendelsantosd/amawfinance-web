@@ -1,18 +1,77 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 import { Header } from '../../Components/Header'
 import { MessageSendEmail } from '../../Components/MessageSendEmail'
-import { ContainerPasswordInput, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion, Form, PrimaryContainer } from '../../styles/utils.styles'
+import { ContainerPasswordInput, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion, Form, PrimaryContainer, ErrorMessage } from '../../styles/utils.styles'
 
 
 export const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [successRegister, setSuccessRegister] = useState(false)
+    const [user, setUser] = useState({
+        name: '',
+        email: '',
+        password: ''
+    })
     const navigate = useNavigate()
+    const [confirmPassword, setConfirmPassword] = useState('')
 
+    const [errorMessageName, setErrorMessageName] = useState('')
+    const [errorMessageEmail, setErrorMessageEmail] = useState('')
+    const [errorMessagePassword, setErrorMessagePassword] = useState('')
+    const [errorMessageConfirmPassword, setErrorMessageConfirmPassword] = useState('')
+
+    const validate = () => {
+        let _validateName = false
+        let _validateEmail = false
+        let _validatePassword = false
+        let _validateConfirmPassword = false
+
+        if (user.name === '') {
+            setErrorMessageName('Preencha corretamente.')
+        } else {
+            setErrorMessageName('')
+            _validateName = true
+        }
+
+        if (user.email === '' || user.email.length < 6 || !user.email.includes('@')) {
+            setErrorMessageEmail('Preencha corretamente.')
+        } else {
+            setErrorMessageEmail('')
+            _validateEmail = true
+        }
+
+        if (user.password === '' || user.password.length < 4) {
+            setErrorMessagePassword('Preencha corretamente.')
+        } else {
+            setErrorMessagePassword('')
+            _validatePassword = true
+        }
+
+        if (confirmPassword === '' || confirmPassword.length < 4) {
+            console.log(confirmPassword)
+            setErrorMessageConfirmPassword('Preencha corretamente.')
+        } else if (confirmPassword !== user.password) {
+            setErrorMessageConfirmPassword('Senhas não conferem.')
+        }else {
+            setErrorMessageConfirmPassword('')
+            _validateConfirmPassword = true
+        }
+
+        return _validateName && _validateEmail && _validatePassword && _validateConfirmPassword
+    }
+
+    const submit = () => {
+        const isValid = validate()
+    }
     return <PrimaryContainer>
+        <ToastContainer
+            theme='colored'
+            style={{ top: '13%' }}
+        />
         <Header isAuth={false}/>
         {successRegister ?
             <MessageSendEmail 
@@ -25,24 +84,56 @@ export const Register = () => {
                 <label htmlFor='name' className='sr-only'>Nome</label>
                 <PrimaryInput
                     id='name'
+                    className={errorMessageName !== '' ? 'error' : ''}
                     placeholder='Nome'
+                    onChange={event => {
+                        const _user = user
+                        _user.name = event.target.value
+                        setUser(_user)
+                    }}
                 />
+                {errorMessageName !== '' ?
+                    <ErrorMessage>
+                        {errorMessageName}
+                    </ErrorMessage>
+                    :
+                    null    
+                }
             
                 <label htmlFor='email' className='sr-only'>E-mail</label>
                 <PrimaryInput
                     id='email'
+                    className={errorMessageEmail !== '' ? 'error' : ''}
                     placeholder='E-mail'
+                    onChange={event => {
+                        const _user = user
+                        _user.email = event.target.value
+                        setUser(_user)
+                    }}
                 />
+                {errorMessageEmail !== '' ?
+                    <ErrorMessage>
+                        {errorMessageEmail}
+                    </ErrorMessage>
+                    :
+                    null    
+                }
 
                 <label htmlFor='password' className='sr-only'>Senha</label>
-                <ContainerPasswordInput>
+                <ContainerPasswordInput
+                    className={errorMessagePassword !== '' ? 'error' : ''}
+                >
                     <input
                         id='password'
                         placeholder='Senha'
                         type={showPassword ? 'text' : 'password'}
                         className='input-password'
+                        onChange={event => {
+                            const _user = user
+                            _user.password = event.target.value
+                            setUser(_user)
+                        }}
                     />
-
                     {showPassword ?
                         <FaEyeSlash 
                             className='eye-icon'
@@ -55,14 +146,27 @@ export const Register = () => {
                         />
                     }
                 </ContainerPasswordInput>
+                {errorMessagePassword !== '' ?
+                    <ErrorMessage>
+                        {errorMessagePassword}
+                    </ErrorMessage>
+                    :
+                    null    
+                }
+
 
                 <label htmlFor='confirm-password' className='sr-only'>Confirmar senha</label>
-                <ContainerPasswordInput>
+                <ContainerPasswordInput
+                    className={errorMessageConfirmPassword !== '' ? 'error' : ''}
+                >
                     <input
                         id='confirm-password'
                         placeholder='Confirmar Senha'
                         type={showPassword ? 'text' : 'password'}
                         className='input-password'
+                        onChange={event => {
+                            setConfirmPassword(event.target.value)
+                        }}
                     />
 
                     {showPassword ?
@@ -77,11 +181,22 @@ export const Register = () => {
                         />
                     }
                 </ContainerPasswordInput>
+                {errorMessageConfirmPassword !== '' ?
+                    <ErrorMessage>
+                        {errorMessageConfirmPassword}
+                    </ErrorMessage>
+                    :
+                    null    
+                }
+
 
                 <PrimaryButton
-                    type='submit'
+                    onClick={event => {
+                        event.preventDefault()
+                        submit()
+                    }}
                 >
-                REGISTRAR
+                    REGISTRAR
                 </PrimaryButton>
 
                 <TextQuestion className='question'>Já tem uma conta? 
