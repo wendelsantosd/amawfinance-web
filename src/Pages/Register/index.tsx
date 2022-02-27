@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import { Header } from '../../Components/Header'
 import { MessageSendEmail } from '../../Components/MessageSendEmail'
+import api from '../../services/api'
 import { ContainerPasswordInput, PrimaryButton, PrimaryInput, TextHeaderForm, TextQuestion, Form, PrimaryContainer, ErrorMessage, Loading } from '../../styles/utils.styles'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -68,13 +69,31 @@ export const Register = () => {
         return _validateName && _validateEmail && _validatePassword && _validateConfirmPassword
     }
 
-    const submit = () => {
+    const submit = async () => {
         const isValid = validate()
 
         if (isValid) {
-            console.log('ok')
+            setLoading(true)
+            const result = await api.request({
+                method: 'post',
+                route: '/user/create',
+                body: user
+            })
+
+            if (result?.status === 201) {
+                setLoading(false)
+                setSuccessRegister(true)
+                toast.success('Conta criada com sucesso!')
+            } else if (result?.status === 400) {
+                setLoading(false)
+                toast.error('E-mail já está em uso.')
+            } else {
+                setLoading(false)
+                toast.error('Ocorreu algum erro.')
+            }
         }
     }
+
     return <PrimaryContainer>
         <ToastContainer
             theme='colored'
