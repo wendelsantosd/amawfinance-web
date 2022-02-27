@@ -49,8 +49,7 @@ export const Login = () => {
         return _validateEmail && _validatePassword
     }
 
-    const submit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    const submit = async () => {
         const isValid= validate()
 
         if (isValid) {
@@ -93,7 +92,7 @@ export const Login = () => {
             style={{ top: '13%' }}
         />
         <Header isAuth={false} />
-        <Form className='animate-up' onSubmit={submit}>
+        <Form className='animate-up'>
             <TextHeaderForm className='title'>Entrar</TextHeaderForm>
             <TextQuestion className='question'>
                 Não tem uma conta?
@@ -172,6 +171,10 @@ export const Login = () => {
             <PrimaryButton
                 type='submit'
                 disabled={loading}
+                onClick={event => {
+                    event.preventDefault()
+                    submit()
+                }}
             >   {loading ?
                     <Loading>
                         <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'}  />
