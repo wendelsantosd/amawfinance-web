@@ -13,7 +13,7 @@ export const Router = () =>
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<Login />} />
-            <Route path='/alter-password' element={<AlterPassword />} />
+            <Route path='/alter-password/:token' element={<AlterPassword />} />
             <Route path='/charts' element={<Charts/>} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/recover-password' element={<RecoverPassword />} />
