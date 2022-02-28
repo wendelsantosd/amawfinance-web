@@ -1,6 +1,6 @@
 import React from 'react'
-import { AuthContext } from '../Contexts/auth.context'
 
+import { AuthContext } from '../Contexts/auth.context'
 import { Router } from '../routes'
 import { GlobalStyle } from './global.styles'
 

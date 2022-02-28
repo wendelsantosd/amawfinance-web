@@ -31,7 +31,7 @@ export const Board = styled.div`
 export const Contain = styled.div`
     display: flex;
     flex-direction: column;
-    width: 1120px;
+    width: 1000px;
 
     @media (max-width: 1200px) {
         width: 900px;

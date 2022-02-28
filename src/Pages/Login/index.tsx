@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { Header } from '../../Components/Header'
 import { AuthContext } from '../../Contexts/auth.context'
-
 import api from '../../services/api'
 import storage from '../../services/storage'
 import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
