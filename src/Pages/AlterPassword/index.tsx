@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import  ReactLoading from 'react-loading'
+import { useParams, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Header } from '../../Components/Header'
-import { ContainerPasswordInput, ErrorMessage, Form, PrimaryButton, PrimaryContainer, TextHeaderForm } from '../../styles/utils.styles'
+import api from '../../services/api'
+import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, TextHeaderForm } from '../../styles/utils.styles'
 
 export const AlterPassword = () => {
+    const { token } = useParams()
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const [errorMessagePassword, setErrorMessagePassword] = useState('')
     const [errorMessageConfirmPassword, setErrorMessageConfirmPassword] = useState('')
@@ -38,9 +46,34 @@ export const AlterPassword = () => {
 
     const submit = async () => {
         const isValid = validate()
+
+        if (isValid) {
+            setLoading(true)
+            const result = await api.request({
+                method: 'post',
+                route: `/user/modify-password-by-recover/${token}`,
+                body: {
+                    password
+                }
+            })
+
+            if (result?.status === 200) {
+                setLoading(false)
+                toast.success('Senha alterada com sucesso!')
+                
+                setTimeout(() => navigate('/'), 1000)
+            } else {
+                setLoading(false)
+                toast.error('Ocorreu um erro!')
+            }
+        }
     }
 
     return <PrimaryContainer>
+        <ToastContainer
+            theme='colored'
+            style={{ top: '13%' }}
+        />
         <Header isAuth={false}/>
         <Form>
             <TextHeaderForm>Alterar Senha</TextHeaderForm>
@@ -119,7 +152,13 @@ export const AlterPassword = () => {
                     submit()
                 }}
             >
-                ALTERAR
+                {loading ?
+                    <Loading>
+                        <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'}  />
+                    </Loading>
+                    :
+                    'ALTERAR'
+                }
             </PrimaryButton>
         </Form>
     </PrimaryContainer>

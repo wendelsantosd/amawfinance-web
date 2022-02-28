@@ -5,6 +5,7 @@ import { FcGoogle } from 'react-icons/fc'
 import  ReactLoading from 'react-loading'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Header } from '../../Components/Header'
 import api from '../../services/api'
@@ -12,7 +13,6 @@ import storage from '../../services/storage'
 import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
 import { GoogleButton } from './login.style'
 
-import 'react-toastify/dist/ReactToastify.css'
 
 
 

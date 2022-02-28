@@ -57,7 +57,6 @@ export const Register = () => {
         }
 
         if (confirmPassword === '' || confirmPassword.length < 4) {
-            console.log(confirmPassword)
             setErrorMessageConfirmPassword('Preencha corretamente.')
         } else if (confirmPassword !== user.password) {
             setErrorMessageConfirmPassword('Senhas não conferem.')
