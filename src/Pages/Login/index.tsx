@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import GoogleLogin from 'react-google-login'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-import  ReactLoading from 'react-loading'
+import ReactLoading from 'react-loading'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Header } from '../../Components/Header'
+import { AuthContext } from '../../Contexts/auth.context'
+
 import api from '../../services/api'
 import storage from '../../services/storage'
 import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
@@ -17,13 +19,15 @@ import { GoogleButton } from './login.style'
 
 
 export const Login = () => {
+    const context = useContext(AuthContext)
+    console.log(context)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     })
-    
+
     const [errorMessageEmail, setErrorMessageEmail] = useState('')
     const [errorMessagePassword, setErrorMessagePassword] = useState('')
 
@@ -51,7 +55,7 @@ export const Login = () => {
     }
 
     const submit = async () => {
-        const isValid= validate()
+        const isValid = validate()
 
         if (isValid) {
             setLoading(true)
@@ -153,11 +157,11 @@ export const Login = () => {
                     {errorMessageEmail}
                 </ErrorMessage>
                 :
-                null    
+                null
             }
 
             <label htmlFor='password' className='sr-only'>Senha</label>
-            <ContainerPasswordInput 
+            <ContainerPasswordInput
                 className={errorMessagePassword !== '' ? 'error' : ''}
             >
                 <input
@@ -173,12 +177,12 @@ export const Login = () => {
                 />
 
                 {showPassword ?
-                    <FaEyeSlash 
+                    <FaEyeSlash
                         className='eye-icon'
                         onClick={() => setShowPassword(false)}
                     />
                     :
-                    <FaEye 
+                    <FaEye
                         className='eye-icon'
                         onClick={() => setShowPassword(true)}
                     />
@@ -189,7 +193,7 @@ export const Login = () => {
                     {errorMessagePassword}
                 </ErrorMessage>
                 :
-                null    
+                null
             }
 
             <TextQuestion className='question'>
@@ -208,10 +212,10 @@ export const Login = () => {
                     event.preventDefault()
                     submit()
                 }}
-            >  
+            >
                 {loading ?
                     <Loading>
-                        <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'}  />
+                        <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
                     </Loading>
                     :
                     'ENTRAR'
