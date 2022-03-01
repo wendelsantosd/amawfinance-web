@@ -25,7 +25,7 @@ export const Header = ({ isAuth }: HeaderProps) => {
 
         {isAuth ?
             <Info>
-                <p>{user.name}</p>
+                <p>{user?.name}</p>
                 <img 
                     src={noAvatar} 
                     alt='Foto de Perfil'

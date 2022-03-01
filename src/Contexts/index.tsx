@@ -22,7 +22,24 @@ export const ContextProvider = ({ children }: ContextProps) => {
     const [user, setUser] = useState<any>()
 
     useEffect(() => {
-        setUser(storage.read('user'))
+        (async () => {
+            if (storage.read('user')) {
+                setUser(storage.read('user'))
+            } else {
+                const result = await api.request({
+                    method: 'get',
+                    route: '/user/data',
+                    query: {
+                        id: storage.read('id')
+                    },
+                })
+
+                if (result?.status === 200) {
+                    storage.write('user', result.data)
+                    setUser(storage.read('user'))
+                }
+            }
+        })()
     }, [])
 
     const userData = async () => {
