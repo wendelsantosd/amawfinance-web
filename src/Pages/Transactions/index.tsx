@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
@@ -58,10 +58,12 @@ export const Transactions = () => {
                             </select>
 
                             <button>
-                            BUSCAR
+                                BUSCAR
                             </button>
                         </Search>
                         <Summary />
+                        <div>
+                        </div>
                         <button 
                             className='btn-new-transaction'
                             onClick={() => setIsTransactionModalOpen(true)}

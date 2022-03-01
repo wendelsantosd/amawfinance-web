@@ -8,9 +8,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Header } from '../../Components/Header'
-import { AuthContext } from '../../Contexts/auth.context'
+import { Context } from '../../Contexts'
 import api from '../../services/api'
-import storage from '../../services/storage'
 import { ContainerPasswordInput, ErrorMessage, Form, Loading, PrimaryButton, PrimaryContainer, PrimaryInput, TextHeaderForm, TextQuestion } from '../../styles/utils.styles'
 import { GoogleButton } from './login.style'
 
@@ -18,8 +17,7 @@ import { GoogleButton } from './login.style'
 
 
 export const Login = () => {
-    const context = useContext(AuthContext)
-    console.log(context)
+    const { userData } = useContext(Context)
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const [credentials, setCredentials] = useState({
@@ -69,13 +67,7 @@ export const Login = () => {
             })
 
             if (result?.status === 200) {
-                const response = await api.request({
-                    method: 'get',
-                    route: '/user/data',
-                    query: {
-                        id: storage.read('id')
-                    }
-                })
+                const response = await userData()
 
                 if (response?.status === 200) {
                     navigate('/transactions')
@@ -104,13 +96,7 @@ export const Login = () => {
         })
 
         if (result?.status === 200) {
-            const response = await api.request({
-                method: 'get',
-                route: '/user/data',
-                query: {
-                    id: storage.read('id')
-                }
-            })
+            const response = await userData()
 
             if (response?.status === 200) {
                 navigate('/transactions')

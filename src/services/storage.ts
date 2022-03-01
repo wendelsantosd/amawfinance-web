@@ -1,5 +1,5 @@
 export default {
-    write: (key: string, value: { [key: string]: any }): void => {
+    write: (key: string, value: { [key: string]: any } | undefined): void => {
         localStorage.setItem(
             key,
             JSON.stringify(value)

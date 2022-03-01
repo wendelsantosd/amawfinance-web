@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { AuthContext } from '../Contexts/auth.context'
+import { ContextProvider } from '../Contexts'
 import { Router } from '../routes'
 import { GlobalStyle } from './global.styles'
 
 const App = () =>
-    <AuthContext.Provider value={{ signed: true }}>
+    <ContextProvider>
         <Router />
         <GlobalStyle />
-    </AuthContext.Provider>
+    </ContextProvider>
 
 export default App
