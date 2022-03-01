@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState } from 'react'
+import React, { createContext, ReactNode, useEffect, useState } from 'react'
 
 import api from '../services/api'
 import storage from '../services/storage'
@@ -21,6 +21,10 @@ export const Context = createContext<ContextData >(
 export const ContextProvider = ({ children }: ContextProps) => {
     const [user, setUser] = useState<any>()
 
+    useEffect(() => {
+        setUser(storage.read('user'))
+    }, [])
+
     const userData = async () => {
         const result = await api.request({
             method: 'get',
@@ -31,8 +35,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
         })
 
         if (result?.status === 200) {
-            setUser(result.data)
             storage.write('user', result.data)
+            setUser(storage.read('user'))
         }
 
         return result

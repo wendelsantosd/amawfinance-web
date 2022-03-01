@@ -6,7 +6,7 @@ export default {
         )
     },
 
-    read: (key: string): any | null => {
+    read: (key: string): any | null | undefined => {
         const value = localStorage.getItem(key)
 
         if (value) {

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Logo from '../../assets/images/logo.svg'
 import noAvatar from '../../assets/images/no_avatar.jpg'
+import { Context } from '../../Contexts'
 import { Container, DataLogo, Info } from './header.styles'
 
 interface HeaderProps {
@@ -10,11 +11,13 @@ interface HeaderProps {
 }
 
 export const Header = ({ isAuth }: HeaderProps) => {
+    const { user } = useContext(Context)
+    
     const navigate = useNavigate()
 
     return <Container>
         <DataLogo
-            onClick={() => navigate('/')}    
+            onClick={() => navigate('/')}
         >
             <img src={Logo} alt='Logo Amaw' />
             <p>Amaw Finance</p>
@@ -22,7 +25,7 @@ export const Header = ({ isAuth }: HeaderProps) => {
 
         {isAuth ?
             <Info>
-                <p>Maria Silva</p>
+                <p>{user.name}</p>
                 <img 
                     src={noAvatar} 
                     alt='Foto de Perfil'
