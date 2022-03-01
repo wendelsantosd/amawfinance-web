@@ -50,6 +50,26 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
         }
     }
 
+    const handleSubmitDeleteProfilePicture = async () => {
+        setLoading(true)
+
+        const result = await api.request({
+            method: 'delete',
+            route: '/profile-picture/delete',
+            query: {
+                id: user.id
+            }
+        })
+        
+        if (result?.status === 200) {
+            toast.success('Imagem removida com sucesso !')
+            setLoading(false)
+        } else {
+            toast.error('Ocorreu um erro ao remover a imagem.')
+            setLoading(false)
+        }
+    }
+
     return <Modal
         isOpen={isOpen}
         onRequestClose={onRequestClose}
@@ -107,7 +127,16 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
                         }}
                     />
                 </button>
-                {!image ? <button className='delete flex' >Apagar Foto</button> : null}
+                {!image ? 
+                    <button 
+                        className='delete flex' 
+                        onClick={handleSubmitDeleteProfilePicture}
+                    >
+                        Apagar Foto
+                    </button> 
+                    : 
+                    null
+                }
                 {image ? 
                     <button 
                         disabled={loading}
