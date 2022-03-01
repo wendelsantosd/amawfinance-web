@@ -1,3 +1,4 @@
+import { use } from 'echarts/lib/echarts'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 
 import api from '../services/api'
@@ -10,8 +11,10 @@ interface ContextProps {
 
 interface ContextData {
     signed: boolean,
+    user: any,
+    setUser: React.Dispatch<any>
     userData: () => Promise<any>
-    user: any
+    userUpdate: () => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -58,11 +61,27 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
         return result
     }
+
+    const userUpdate = async () => {
+        const result = await api.request({
+            method: 'post',
+            route: `/user/update?id=${user.id}`,
+            body: user
+        })
+
+        if (result?.status === 200) {
+            await userData()
+        }
+
+        return result
+    }
     
     return <Context.Provider value={{
         signed: user ? true: false, 
-        user, 
-        userData
+        user,
+        setUser,
+        userData,
+        userUpdate
     }}>
         {children}
     </Context.Provider>

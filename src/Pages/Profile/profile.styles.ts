@@ -75,6 +75,10 @@ export const Form = styled.form`
             color: var(--grey-300);
             font-weight: 600;
         }
+
+        &.error {
+            border: 3px solid var(--red-300);
+        }
     }
 
     button {
@@ -134,4 +138,12 @@ export const Form = styled.form`
             }
         }
     }
+`
+
+export const ErrorMessage = styled.p`
+    color: var(--red-300);
+    font-size: 0.8rem;
+    width: 22rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
 `

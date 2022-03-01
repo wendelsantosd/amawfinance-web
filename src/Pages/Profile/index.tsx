@@ -1,6 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { BsFillCameraFill } from 'react-icons/bs'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import Loading from 'react-loading'
+import ReactLoading from 'react-loading'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import noAvatar from '../../assets/images/no_avatar.jpg'
 import { Header } from '../../Components/Header'
@@ -8,23 +12,53 @@ import { Menu } from '../../Components/Menu'
 import { ProfilePictureModal } from '../../Components/profilePictureModal'
 import { Context } from '../../Contexts'
 import format from '../../services/format'
-import { Board, Container, Content, Form, ProfilePicture } from './profile.styles'
+import { Board, Container, Content, ErrorMessage, Form, ProfilePicture } from './profile.styles'
+
 
 export const Profile = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] = useState(false)
-    const { user } = useContext(Context)
+    const [loading, setLoading] = useState(false)
+    const { user, setUser, userUpdate } = useContext(Context)
 
-    const [dataUser, setDataUser] = useState({
-        name: '',
-        phone: ''
-    })
+    const [errorMessageName, setErrorMessageName] = useState('')
+    const [errorMessagePhone, setErrorMessagePhone] = useState('')
 
     const handleCloseProfilePictureModal = () => {
         setIsProfilePictureModalOpen(false)
     }
 
+    const validateData = () => {
+        let _validateName = false
+        let _validatePhone = false
+
+        if (user.name === '') {
+            setErrorMessageName('Preencha corretamente.')
+        } else {
+            setErrorMessageName('')
+            _validateName = true
+        }
+
+        if (user.phone.length === 12 || user.phone.length < 1) {
+            setErrorMessagePhone('')
+            _validatePhone = true
+        } else {
+            setErrorMessagePhone('Número inválido.')
+        }
+
+
+        return _validateName && _validatePhone
+    }
+
+    const handleSubmitUpdateData = async () => {
+        const isValid = validateData()
+    }
+
     return <Container>
+        <ToastContainer 
+            theme='colored'
+            style={{ top: '13%'}}
+        />
         <Header isAuth/>
         <Content>
             <ProfilePictureModal 
@@ -44,21 +78,55 @@ export const Profile = () => {
                     <label htmlFor='name'>Nome:</label>
                     <input
                         id='name'
+                        className={errorMessageName !== '' ? 'error' : ''}
                         defaultValue={user?.name}
+                        onChange={event => {
+                            const _user = user
+                            _user.name = event.target.value
+                            setUser(_user)
+                        }}
                     />
+                    {errorMessageName !== '' ?
+                        <ErrorMessage>
+                            {errorMessageName}
+                        </ErrorMessage>
+                        :
+                        null    
+                    }
+                    
                     <label htmlFor='phone'>Telefone:</label>
                     <input
                         id='phone'
+                        className={errorMessagePhone !== '' ? 'error' : ''}
                         defaultValue={format.phone(user?.phone)}
                         onChange={event => {
-                            const _dataUser = dataUser
-                            _dataUser.phone = format.getOnlyNumbers(event.target.value)
+                            const _user = user
+                            _user.phone = format.getOnlyNumbers(event.target.value)
                             event.target.value = format.phone(event.target.value)
-                            setDataUser(_dataUser)
+                            setUser(_user)
                         }}
                     />
-                    <button>
-                        SALVAR
+                    {errorMessagePhone !== '' ?
+                        <ErrorMessage>
+                            {errorMessagePhone}
+                        </ErrorMessage>
+                        :
+                        null    
+                    }
+
+                    <button
+                        onClick={event => {
+                            event.preventDefault()
+                            handleSubmitUpdateData()
+                        }}
+                    >
+                        {loading ?
+                            <Loading>
+                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
+                            </Loading>
+                            :
+                            'SALVAR'
+                        }
                     </button>
 
                     <label htmlFor='email'>E-mail:</label>
@@ -72,7 +140,13 @@ export const Profile = () => {
                         placeholder='Confirme seu e-mail para alterar.'
                     />
                     <button>
-                        ALTERAR E-MAIL
+                        {loading ?
+                            <Loading>
+                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
+                            </Loading>
+                            :
+                            'ALTERAR E-MAIL'
+                        }
                     </button>
 
                     <label htmlFor='password'>Senha</label>
@@ -119,7 +193,13 @@ export const Profile = () => {
                         }
                     </div>
                     <button>
-                        ALTERAR SENHA
+                        {loading ?
+                            <Loading>
+                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
+                            </Loading>
+                            :
+                            'ALTERAR SENHA'
+                        }
                     </button>
                 </Form>
             </Board>
