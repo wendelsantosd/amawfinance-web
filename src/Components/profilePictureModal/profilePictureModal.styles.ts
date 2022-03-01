@@ -34,6 +34,12 @@ export const Container = styled.div`
             font-weight: 600;
             font-size: 1rem;
 
+            &.flex {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
             &.new {
                 background: var(--green-300);
                 margin-left: 1rem;
@@ -64,3 +70,5 @@ export const Container = styled.div`
         }
     }
 `
+
+export const Loading = styled.div``

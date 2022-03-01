@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -7,6 +8,7 @@ import CloseIcon from '../../assets/icons/close.svg'
 import noAvatar from '../../assets/images/no_avatar.jpg'
 import { Context } from '../../Contexts'
 import api from '../../services/api'
+import { Loading } from '../../styles/utils.styles'
 import { Container } from './profilePictureModal.styles'
 
 interface NewTransactionModalProps {
@@ -21,15 +23,11 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
 
     const submit = async () => {
         setLoading(true)
-        // try {
-        // const { status } = await api.post(`/profile-picture/create?id=${user.id}`, formData, {
-        //     'Content-Type': 'multipart/form-data'
-        // })
         if (typeof image !== 'undefined') {
             const formData = new FormData()
 
             formData.append('file', image)
-            
+
             const result = await api.request({
                 method: 'post',
                 route: `/profile-picture/create?id=${user.id}`,
@@ -50,10 +48,6 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
             toast.warning('Selecione uma imagem.')
             setLoading(false)
         }
-            
-        // } catch (err: any) {
-        //     toast.log('Ocorreu algum erro')
-        // }
     }
 
     return <Modal
@@ -69,6 +63,7 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
         <button
             onClick={onRequestClose}
             className='react-modal-close'
+            disabled={loading}
         >
             <img src={CloseIcon} alt='Ícone de fechar' />
         </button>
@@ -80,18 +75,28 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
             <div>
                 {image ? 
                     <button 
-                        className='save'
+                        disabled={loading}
+                        className='save flex'
                         onClick={event => {
                             event.preventDefault()
                             submit()
                         }}
                     >
-                    Salvar
+                        {loading ?
+                            <Loading>
+                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'20px'} width={'20px'} />
+                            </Loading>
+                            :
+                            'Salvar'
+                        }
                     </button> 
                     : 
                     null
                 }
-                <button className='new'>
+                <button 
+                    className='new'
+                    disabled={loading}
+                >
                     <label htmlFor='upload'>Nova Foto</label>
                     <input
                         id='upload'
@@ -102,9 +107,10 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
                         }}
                     />
                 </button>
-                {!image ? <button className='delete'>Apagar Foto</button> : null}
+                {!image ? <button className='delete flex' >Apagar Foto</button> : null}
                 {image ? 
                     <button 
+                        disabled={loading}
                         className='delete'
                         onClick={() => setImage('')}
                     >
