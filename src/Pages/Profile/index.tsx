@@ -1,19 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { BsFillCameraFill } from 'react-icons/bs'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 import noAvatar from '../../assets/images/no_avatar.jpg'
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
+import { Context } from '../../Contexts'
 import { Board, Container, Content, Form, ProfilePicture } from './profile.styles'
 
 export const Profile = () => {
     const [showPassword, setShowPassword] = useState(false)
-    const user = {
-        name: 'Maria Silva',
-        phone: '(91) 98736-2766',
-        email: 'mariasilva@provider.com'
-    }
+    const { user } = useContext(Context)
 
     return <Container>
         <Header isAuth/>
@@ -28,12 +25,12 @@ export const Profile = () => {
                     <label htmlFor='name'>Nome:</label>
                     <input
                         id='name'
-                        defaultValue={user.name}
+                        defaultValue={user?.name}
                     />
                     <label htmlFor='phone'>Telefone:</label>
                     <input
                         id='phone'
-                        defaultValue={user.phone}
+                        defaultValue={user?.phone}
                     />
                     <button>
                         SALVAR
@@ -42,7 +39,7 @@ export const Profile = () => {
                     <label htmlFor='email'>E-mail:</label>
                     <input
                         id='email'
-                        defaultValue={user.email}
+                        defaultValue={user?.email}
                     />
                     <label htmlFor='confirm-email'>E-mail:</label>
                     <input
