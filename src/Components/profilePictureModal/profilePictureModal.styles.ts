@@ -22,6 +22,8 @@ export const Container = styled.div`
 
     div {
         display: flex;
+        justify-content: center;
+        width: 100%;
 
         button {
             position: relative;
@@ -66,6 +68,11 @@ export const Container = styled.div`
                 left: -2rem;
                 cursor: pointer;
                 opacity: 0;
+            }
+
+            transition: filter 0.5s ease;
+            &:hover {
+                filter: brightness(0.8);
             }
         }
     }

@@ -13,6 +13,7 @@ export const Profile = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] = useState(false)
     const { user } = useContext(Context)
+    console.log(user)
 
     const handleCloseProfilePictureModal = () => {
         setIsProfilePictureModalOpen(false)
@@ -28,7 +29,7 @@ export const Profile = () => {
             <Menu page={'profile'}/>
             <Board>
                 <ProfilePicture>
-                    <img src={noAvatar} alt='Sem foto de perfil' />
+                    <img src={user?.picture_url ? user?.picture_url : noAvatar} alt='Sem foto de perfil' />
                     <BsFillCameraFill 
                         className='camera-icon'
                         onClick={() => setIsProfilePictureModalOpen(true)}

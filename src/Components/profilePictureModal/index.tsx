@@ -18,7 +18,7 @@ interface NewTransactionModalProps {
 
 export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) => {
     const [image, setImage] = useState<any>()
-    const { user } = useContext(Context)
+    const { user, userData } = useContext(Context)
     const [loading, setLoading] = useState(false)
 
     const submit = async () => {
@@ -40,6 +40,8 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
             if (result?.status === 201) {
                 toast.success('Imagem salva com sucesso !')
                 setLoading(false)
+                userData()
+                onRequestClose()
             } else {
                 toast.error('Ocorreu um erro ao salvar imagem.')
                 setLoading(false)
@@ -90,7 +92,11 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
         <Container>
             <h2>Alterar Foto de Perfil</h2>
 
-            <img src={image ? URL.createObjectURL(image) : noAvatar} alt='foto de perfil' />
+            {user?.picture_url ?
+                <img src={image ? URL.createObjectURL(image) : user?.picture_url} alt='foto de perfil' />
+                :
+                <img src={image ? URL.createObjectURL(image) : noAvatar} alt='foto de perfil' />
+            }
 
             <div>
                 {image ? 
