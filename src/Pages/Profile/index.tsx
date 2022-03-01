@@ -22,11 +22,15 @@ export const Profile = () => {
     const [loading2, setLoading2] = useState(false)
     const { user, setUser, userUpdate, emailUpdate } = useContext(Context)
     const [confirmEmail, setConfirmEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const [errorMessageName, setErrorMessageName] = useState('')
     const [errorMessagePhone, setErrorMessagePhone] = useState('')
     const [errorMessageEmail, setErrorMessageEmail] = useState('')
     const [errorMessageConfirmEmail, setErrorMessageConfirmEmail] = useState('')
+    const [errorMessagePassword, setErrorMessagePassword] = useState('')
+    const [errorMessageConfirmPassword, setErrorMessageConfirmPassword] = useState('')
 
     const handleCloseProfilePictureModal = () => {
         setIsProfilePictureModalOpen(false)
@@ -102,6 +106,34 @@ export const Profile = () => {
 
             toast.success('E-mail enviando para confirmação !')
         }
+    }
+
+    const validatePassword = () => {
+        let _validatePassword = false
+        let _validateConfirmPassword = false
+
+
+        if (password === '' || password.length < 4) {
+            setErrorMessagePassword('Preencha corretamente.')
+        } else {
+            setErrorMessagePassword('')
+            _validatePassword = true
+        }
+
+        if (confirmPassword === '' || confirmPassword.length < 4) {
+            setErrorMessageConfirmPassword('Preencha corretamente.')
+        } else if (confirmPassword !== password) {
+            setErrorMessageConfirmPassword('Senhas não conferem.')
+        }else {
+            setErrorMessageConfirmPassword('')
+            _validateConfirmPassword = true
+        }
+
+        return _validatePassword && _validateConfirmPassword
+    }
+
+    const handleSubmitUpdatePassword = () => {
+        const isValid = validatePassword()
     }
 
     return <Container>
@@ -225,12 +257,15 @@ export const Profile = () => {
                     </button>
 
                     <label htmlFor='password'>Senha</label>
-                    <div className='container-password'>
+                    <div 
+                        className={errorMessagePassword !== '' ? 'container-password error' : 'container-password'}
+                    >
                         <input
                             id='password'
                             placeholder='Nova Senha'
                             type={showPassword ? 'text' : 'password'}
                             className='input-password'
+                            onChange={event => setPassword(event.target.value)}
                         />
 
                         {showPassword ?
@@ -245,14 +280,24 @@ export const Profile = () => {
                             />
                         }
                     </div>
+                    {errorMessagePassword !== '' ?
+                        <ErrorMessage>
+                            {errorMessagePassword}
+                        </ErrorMessage>
+                        :
+                        null    
+                    }
 
                     <label htmlFor='confirm-password'>Confirmar senha</label>
-                    <div className='container-password'>
+                    <div
+                        className={errorMessageConfirmPassword !== '' ? 'container-password error' : 'container-password'}
+                    >
                         <input
                             id='confirm-password'
                             placeholder='Confirmar Senha'
                             type={showPassword ? 'text' : 'password'}
                             className='input-password'
+                            onChange={event => setConfirmPassword(event.target.value)}
                         />
 
                         {showPassword ?
@@ -267,8 +312,20 @@ export const Profile = () => {
                             />
                         }
                     </div>
+                    {errorMessageConfirmPassword !== '' ?
+                        <ErrorMessage>
+                            {errorMessageConfirmPassword}
+                        </ErrorMessage>
+                        :
+                        null    
+                    }
+
                     <button
                         disabled={loading1 || loading2}
+                        onClick={event => {
+                            event.preventDefault()
+                            handleSubmitUpdatePassword()
+                        }}
                     >
                         {loading2 ?
                             <Loading>

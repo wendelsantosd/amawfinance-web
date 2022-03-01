@@ -112,6 +112,10 @@ export const Form = styled.form`
         border-radius: 0.3rem;
         margin-bottom: 1.2rem;
 
+        &.error {
+            border: 3px solid var(--red-300);
+        }
+
         .input-password {
             position: absolute;
             width: 100%;
