@@ -54,7 +54,7 @@ export const request = async ({
 
         const { status, data } = await api[method](route, body)
 
-        if (status === 200 && method === 'get') {
+        if (status === 200) {
             const keys = Object.keys(data)
 
             if(!noStore) {

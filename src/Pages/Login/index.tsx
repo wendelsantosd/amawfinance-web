@@ -58,12 +58,9 @@ export const Login = () => {
             setLoading(true)
 
             const result = await api.request({
-                method: 'get',
+                method: 'post',
                 route: '/user/auth',
-                query: {
-                    email: credentials.email,
-                    password: credentials.password
-                }
+                body: credentials
             })
 
             if (result?.status === 200) {
@@ -87,9 +84,9 @@ export const Login = () => {
         const name = response.profileObj.name
 
         const result = await api.request({
-            method: 'get',
+            method: 'post',
             route: '/user/google-auth',
-            query: {
+            body: {
                 idToken,
                 name
             }
