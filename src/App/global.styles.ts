@@ -109,6 +109,7 @@ export const GlobalStyle = createGlobalStyle`
         bottom: 0;
         left: 0;
         right: 0;
+        z-index: 2;
     }
 
     .react-modal-content {
@@ -117,7 +118,7 @@ export const GlobalStyle = createGlobalStyle`
         padding: 3rem;
         position: relative;
         border-radius: 0.5rem;
-        background: var(--white);;
+        background: var(--white);
     }
 
     .react-modal-close {
