@@ -11,8 +11,15 @@ interface NewTransactionModalProps {
     onRequestClose: () => void
 }
 
+
 export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) => {
     const [type, setType] = useState('income')
+
+    const [transaction, setTransaction] = useState({
+        description: '',
+        amount: 0,
+        type: 'income'
+    })
 
     return <Modal
         isOpen={isOpen}
@@ -33,6 +40,11 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
             <input 
                 id='description'
                 placeholder='Descrição'
+                onChange={event => {
+                    const _transaction = transaction
+                    _transaction.description = event.target.value
+                    setTransaction(_transaction)
+                }}
             />
 
             <label htmlFor='amount' className='sr-only'>Valor</label>
@@ -40,19 +52,29 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                 id='amount'
                 type='number'
                 placeholder='Valor'
+                onChange={event => {
+                    const _transaction = transaction
+                    _transaction.amount = Number(event.target.value)
+                    setTransaction(_transaction)
+                }}
             />
 
-            <label htmlFor='installments' className='sr-only'>Parcelas</label>
+            {/* <label htmlFor='installments' className='sr-only'>Parcelas</label>
             <input 
                 id='installments'
                 type='number'
                 placeholder='Parcelas'
-            />
+            /> */}
 
             <TransactionTypeContainer>
                 <RadioBox
                     type='button'
-                    onClick={() => { setType('income') }}
+                    onClick={() => {
+                        const _transaction = transaction
+                        _transaction.type = 'income'
+                        setTransaction(_transaction)
+                        setType('income')
+                    }}
                     isActive={type === 'income'}
                     activeColor='green'
                 >
@@ -62,7 +84,12 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
 
                 <RadioBox
                     type='button'
-                    onClick={() => { setType('expense') }}
+                    onClick={() => {
+                        const _transaction = transaction
+                        _transaction.type = 'expense'
+                        setTransaction(_transaction)
+                        setType('expense')
+                    }}
                     isActive={type === 'expense'}
                     activeColor='red'
                 >
@@ -71,9 +98,27 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                 </RadioBox>
             </TransactionTypeContainer>
 
-            <button className='button'>
+            <button 
+                onClick={()=> console.log(transaction)}
+                className='button'
+            >
                 SALVAR
             </button>
         </Container>
     </Modal>
 }
+
+// const convertCurrencyToNumber= () => {
+//     console.log(amount)
+//     let _amount = amount.split('R$ ')[1]
+
+//     if (_amount.includes('.')) {
+//         _amount = _amount.replace(/\./g, '')
+//     }
+
+//     _amount = _amount.replace(',','.')
+        
+//     const _newAmount = Number(_amount)
+        
+//     return _newAmount
+// }

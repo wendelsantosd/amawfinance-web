@@ -8,6 +8,14 @@ const format = {
             : ''
     ,
 
+    currency: (value: string | undefined) =>
+        value ? 'R$ ' + value
+            ?.replace(/\D/g, '')
+            .replace(/(\d)(\d{2})$/, '$1,$2')
+            .replace(/(?=(\d{3})+(\D))\B/g, '.')
+            : ''
+    ,
+
     cpf: (cpf: string | undefined) =>
         cpf ? cpf
             ?.replace(/\D/g, '')

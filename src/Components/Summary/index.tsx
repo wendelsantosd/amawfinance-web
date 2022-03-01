@@ -9,7 +9,7 @@ export const Summary = () => {
     const summary = {
         income: 2000,
         expense: 1000,
-        total: 1000
+        total: 1000.33
     }
 
     return <Container>
