@@ -40,8 +40,11 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
             if (result?.status === 201) {
                 toast.success('Imagem salva com sucesso !')
                 setLoading(false)
+                setImage('')
                 userData()
-                onRequestClose()
+                setTimeout(() => {
+                    onRequestClose()
+                }, 1000)
             } else {
                 toast.error('Ocorreu um erro ao salvar imagem.')
                 setLoading(false)
@@ -66,6 +69,10 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
         if (result?.status === 200) {
             toast.success('Imagem removida com sucesso !')
             setLoading(false)
+            userData()
+            setTimeout(() => {
+                onRequestClose()
+            }, 1000)
         } else {
             toast.error('Ocorreu um erro ao remover a imagem.')
             setLoading(false)
@@ -103,10 +110,7 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
                     <button 
                         disabled={loading}
                         className='save flex'
-                        onClick={event => {
-                            event.preventDefault()
-                            submit()
-                        }}
+                        onClick={submit}
                     >
                         {loading ?
                             <Loading>
@@ -138,7 +142,13 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
                         className='delete flex' 
                         onClick={handleSubmitDeleteProfilePicture}
                     >
-                        Apagar Foto
+                        {loading ?
+                            <Loading>
+                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'20px'} width={'20px'} />
+                            </Loading>
+                            :
+                            'Apagar foto'
+                        }
                     </button> 
                     : 
                     null
