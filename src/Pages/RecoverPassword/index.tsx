@@ -38,8 +38,7 @@ export const RecoverPassword = () => {
                 route: '/user/recover-password',
                 query: {
                     email
-                },
-                noStore: true
+                }
             })
 
             setSuccessRecover(true)

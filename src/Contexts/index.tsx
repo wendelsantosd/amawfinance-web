@@ -28,7 +28,6 @@ export const ContextProvider = ({ children }: ContextProps) => {
             query: {
                 id: storage.read('id')
             },
-            noStore: true
         })
 
         if (result?.status === 200) {

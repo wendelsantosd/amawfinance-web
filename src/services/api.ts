@@ -15,7 +15,7 @@ interface APIRequestOptions {
     body?: {
         [key: string]: any
     }
-    noStore?: boolean
+    store?: boolean
 }
 
 const baseURL = 'http://localhost:3333'
@@ -36,7 +36,7 @@ export const request = async ({
     route,
     query,
     body,
-    noStore = false
+    store = false
 }: APIRequestOptions): Promise<{
     status: number,
     data?: {
@@ -57,7 +57,7 @@ export const request = async ({
         if (status === 200) {
             const keys = Object.keys(data)
 
-            if(!noStore) {
+            if(store) {
                 keys.forEach(key => {
                     storage.write(key, data[key])
                 })

@@ -60,7 +60,8 @@ export const Login = () => {
             const result = await api.request({
                 method: 'post',
                 route: '/user/auth',
-                body: credentials
+                body: credentials,
+                store: true
             })
 
             if (result?.status === 200) {
@@ -89,7 +90,8 @@ export const Login = () => {
             body: {
                 idToken,
                 name
-            }
+            },
+            store: true
         })
 
         if (result?.status === 200) {
