@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { BsFillCameraFill } from 'react-icons/bs'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import Loading from 'react-loading'
 import ReactLoading from 'react-loading'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -12,13 +11,16 @@ import { Menu } from '../../Components/Menu'
 import { ProfilePictureModal } from '../../Components/profilePictureModal'
 import { Context } from '../../Contexts'
 import format from '../../services/format'
+import { Loading } from '../../styles/utils.styles'
 import { Board, Container, Content, ErrorMessage, Form, ProfilePicture } from './profile.styles'
 
 
 export const Profile = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [loading1, setLoading1] = useState(false)
+    const [loading2, setLoading2] = useState(false)
+    const [loading3, setLoading3] = useState(false)
     const { user, setUser, userUpdate } = useContext(Context)
 
     const [errorMessageName, setErrorMessageName] = useState('')
@@ -115,14 +117,15 @@ export const Profile = () => {
                     }
 
                     <button
+                        disabled={loading1 || loading2 || loading3}
                         onClick={event => {
                             event.preventDefault()
                             handleSubmitUpdateData()
                         }}
                     >
-                        {loading ?
+                        {loading1 ?
                             <Loading>
-                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
+                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'20px'} width={'20px'} />
                             </Loading>
                             :
                             'SALVAR'
@@ -139,8 +142,10 @@ export const Profile = () => {
                         id='confirm-email'
                         placeholder='Confirme seu e-mail para alterar.'
                     />
-                    <button>
-                        {loading ?
+                    <button
+                        disabled={loading1 || loading2 || loading3}
+                    >
+                        {loading2 ?
                             <Loading>
                                 <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
                             </Loading>
@@ -150,7 +155,7 @@ export const Profile = () => {
                     </button>
 
                     <label htmlFor='password'>Senha</label>
-                    <div>
+                    <div className='container-password'>
                         <input
                             id='password'
                             placeholder='Nova Senha'
@@ -172,7 +177,7 @@ export const Profile = () => {
                     </div>
 
                     <label htmlFor='confirm-password'>Confirmar senha</label>
-                    <div>
+                    <div className='container-password'>
                         <input
                             id='confirm-password'
                             placeholder='Confirmar Senha'
@@ -192,8 +197,10 @@ export const Profile = () => {
                             />
                         }
                     </div>
-                    <button>
-                        {loading ?
+                    <button
+                        disabled={loading1 || loading2 || loading3}
+                    >
+                        {loading3 ?
                             <Loading>
                                 <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
                             </Loading>

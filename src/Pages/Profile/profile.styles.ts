@@ -82,6 +82,9 @@ export const Form = styled.form`
     }
 
     button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 2.2rem;
         border-radius: 2.5rem;
         border: none;
@@ -91,6 +94,7 @@ export const Form = styled.form`
         letter-spacing: 2px;
         color: var(--white);
         margin-bottom: 4rem;
+        overflow: hidden;
 
         transition: filter 0.5s ease;
 
@@ -99,12 +103,12 @@ export const Form = styled.form`
         }
     }
 
-    div {
+    .container-password {
         position: relative;
         display: flex;
         justify-content: center;
         height: 2.2rem;
-       border: 3px solid var(--white-300);
+        border: 3px solid var(--white-300);
         border-radius: 0.3rem;
         margin-bottom: 1.2rem;
 
