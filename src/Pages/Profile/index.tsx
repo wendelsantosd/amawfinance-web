@@ -22,9 +22,12 @@ export const Profile = () => {
     const [loading2, setLoading2] = useState(false)
     const [loading3, setLoading3] = useState(false)
     const { user, setUser, userUpdate } = useContext(Context)
+    const [confirmEmail, setConfirmEmail] = useState('')
 
     const [errorMessageName, setErrorMessageName] = useState('')
     const [errorMessagePhone, setErrorMessagePhone] = useState('')
+    const [errorMessageEmail, setErrorMessageEmail] = useState('')
+    const [errorMessageConfirmEmail, setErrorMessageConfirmEmail] = useState('')
 
     const handleCloseProfilePictureModal = () => {
         setIsProfilePictureModalOpen(false)
@@ -67,6 +70,33 @@ export const Profile = () => {
                 setLoading1(false)
             }
         }
+    }
+
+    const validateEmail = () => {
+        let _validateEmail = false
+        let _validateConfirmEmail = false
+
+        if (user.email === '' || user.email.length < 6 || !user.email.includes('@')) {
+            setErrorMessageEmail('Preencha corretamente.')
+        } else {
+            setErrorMessageEmail('')
+            _validateEmail = true
+        }
+
+        if (confirmEmail === '' || confirmEmail.length < 6 || !confirmEmail.includes('@')) {
+            setErrorMessageConfirmEmail('Preencha corretamente.')
+        } else if (confirmEmail !== user?.email) {
+            setErrorMessageConfirmEmail('E-mail não confere.')
+        } else {
+            setErrorMessageConfirmEmail('')
+            _validateConfirmEmail = true
+        }
+
+        return _validateEmail && _validateConfirmEmail 
+    }
+
+    const handleSubmitUpdateEmail = async () => {
+        const isValid = validateEmail()
     }
 
     return <Container>
@@ -148,15 +178,43 @@ export const Profile = () => {
                     <label htmlFor='email'>E-mail:</label>
                     <input
                         id='email'
+                        className={errorMessageEmail !== '' ? 'error' : ''}
                         defaultValue={user?.email}
+                        onChange={event => {
+                            const _user = user
+                            _user.email = event.target.value
+                            setUser(user)
+                        }}
                     />
-                    <label htmlFor='confirm-email'>E-mail:</label>
+                    {errorMessageEmail !== '' ?
+                        <ErrorMessage>
+                            {errorMessageEmail}
+                        </ErrorMessage>
+                        :
+                        null    
+                    }
+
+                    <label htmlFor='confirm-email'>Confirmar e-mail:</label>
                     <input
                         id='confirm-email'
+                        className={errorMessageConfirmEmail !== '' ? 'error' : ''}
                         placeholder='Confirme seu e-mail para alterar.'
+                        onChange={event => setConfirmEmail(event.target.value)}
                     />
+                    {errorMessageConfirmEmail !== '' ?
+                        <ErrorMessage>
+                            {errorMessageConfirmEmail}
+                        </ErrorMessage>
+                        :
+                        null    
+                    }
+
                     <button
                         disabled={loading1 || loading2 || loading3}
+                        onClick={event => {
+                            event.preventDefault()
+                            handleSubmitUpdateEmail()
+                        }}
                     >
                         {loading2 ?
                             <Loading>
