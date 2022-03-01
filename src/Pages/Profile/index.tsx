@@ -54,6 +54,19 @@ export const Profile = () => {
 
     const handleSubmitUpdateData = async () => {
         const isValid = validateData()
+
+        if (isValid) {
+            setLoading1(true)
+            const result = await userUpdate()
+
+            if (result?.status === 200) {
+                toast.success('Alterado com sucesso !')
+                setLoading1(false)
+            } else {
+                toast.error('Ocorreu um erro ao alterar.')
+                setLoading1(false)
+            }
+        }
     }
 
     return <Container>

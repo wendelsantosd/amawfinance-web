@@ -64,7 +64,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
     const userUpdate = async () => {
         const result = await api.request({
-            method: 'post',
+            method: 'put',
             route: `/user/update?id=${user.id}`,
             body: user
         })
