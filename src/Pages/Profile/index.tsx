@@ -16,11 +16,11 @@ import { Board, Container, Content, ErrorMessage, Form, ProfilePicture } from '.
 
 
 export const Profile = () => {
+    const { user, setUser, userUpdate, emailUpdate, passwordUpdate } = useContext(Context)
     const [showPassword, setShowPassword] = useState(false)
     const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] = useState(false)
     const [loading1, setLoading1] = useState(false)
     const [loading2, setLoading2] = useState(false)
-    const { user, setUser, userUpdate, emailUpdate } = useContext(Context)
     const [confirmEmail, setConfirmEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -132,8 +132,21 @@ export const Profile = () => {
         return _validatePassword && _validateConfirmPassword
     }
 
-    const handleSubmitUpdatePassword = () => {
+    const handleSubmitUpdatePassword = async () => {
         const isValid = validatePassword()
+
+        if (isValid) {
+            setLoading2(true)
+            const result = await passwordUpdate(password)
+
+            if (result?.status === 200) {
+                setLoading2(false)
+                toast.success('Senha alterada com sucesso !')
+            } else {
+                setLoading2(false)
+                toast.error('Ocorreu um erro ao alterar a senha.')
+            }
+        }
     }
 
     return <Container>

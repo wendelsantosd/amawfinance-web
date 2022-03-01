@@ -17,6 +17,8 @@ interface ContextData {
     userUpdate: () => Promise<any>
     // eslint-disable-next-line no-unused-vars
     emailUpdate: (email: string) => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    passwordUpdate: (password: string) => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -90,6 +92,18 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
         return result
     }
+
+    const passwordUpdate = async (password: string) => {
+        const result = await api.request({
+            method: 'patch',
+            route: `/user/modify-password?id=${user.id}`,
+            body: {
+                password
+            }
+        })
+
+        return result
+    }
     
     return <Context.Provider value={{
         signed: user ? true: false, 
@@ -97,7 +111,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
         setUser,
         userData,
         userUpdate,
-        emailUpdate
+        emailUpdate,
+        passwordUpdate
     }}>
         {children}
     </Context.Provider>
