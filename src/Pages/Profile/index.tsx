@@ -20,8 +20,7 @@ export const Profile = () => {
     const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] = useState(false)
     const [loading1, setLoading1] = useState(false)
     const [loading2, setLoading2] = useState(false)
-    const [loading3, setLoading3] = useState(false)
-    const { user, setUser, userUpdate } = useContext(Context)
+    const { user, setUser, userUpdate, emailUpdate } = useContext(Context)
     const [confirmEmail, setConfirmEmail] = useState('')
 
     const [errorMessageName, setErrorMessageName] = useState('')
@@ -97,6 +96,12 @@ export const Profile = () => {
 
     const handleSubmitUpdateEmail = async () => {
         const isValid = validateEmail()
+
+        if (isValid) {
+            await emailUpdate(user?.email)
+
+            toast.success('E-mail enviando para confirmação !')
+        }
     }
 
     return <Container>
@@ -160,7 +165,7 @@ export const Profile = () => {
                     }
 
                     <button
-                        disabled={loading1 || loading2 || loading3}
+                        disabled={loading1 || loading2}
                         onClick={event => {
                             event.preventDefault()
                             handleSubmitUpdateData()
@@ -210,19 +215,13 @@ export const Profile = () => {
                     }
 
                     <button
-                        disabled={loading1 || loading2 || loading3}
+                        disabled={loading1 || loading2}
                         onClick={event => {
                             event.preventDefault()
                             handleSubmitUpdateEmail()
                         }}
                     >
-                        {loading2 ?
-                            <Loading>
-                                <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
-                            </Loading>
-                            :
-                            'ALTERAR E-MAIL'
-                        }
+                            ALTERAR E-MAIL
                     </button>
 
                     <label htmlFor='password'>Senha</label>
@@ -269,9 +268,9 @@ export const Profile = () => {
                         }
                     </div>
                     <button
-                        disabled={loading1 || loading2 || loading3}
+                        disabled={loading1 || loading2}
                     >
-                        {loading3 ?
+                        {loading2 ?
                             <Loading>
                                 <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
                             </Loading>

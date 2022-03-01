@@ -15,6 +15,8 @@ interface ContextData {
     setUser: React.Dispatch<any>
     userData: () => Promise<any>
     userUpdate: () => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    emailUpdate: (email: string) => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -75,13 +77,27 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
         return result
     }
+
+    const emailUpdate = async (email: string) => {
+        const result = await api.request({
+            method: 'get',
+            route: '/user/modify-email',
+            query: {
+                id: user.id,
+                email
+            }
+        })
+
+        return result
+    }
     
     return <Context.Provider value={{
         signed: user ? true: false, 
         user,
         setUser,
         userData,
-        userUpdate
+        userUpdate,
+        emailUpdate
     }}>
         {children}
     </Context.Provider>
