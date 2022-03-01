@@ -7,13 +7,18 @@ import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
 import { ProfilePictureModal } from '../../Components/profilePictureModal'
 import { Context } from '../../Contexts'
+import format from '../../services/format'
 import { Board, Container, Content, Form, ProfilePicture } from './profile.styles'
 
 export const Profile = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] = useState(false)
     const { user } = useContext(Context)
-    console.log(user)
+
+    const [dataUser, setDataUser] = useState({
+        name: '',
+        phone: ''
+    })
 
     const handleCloseProfilePictureModal = () => {
         setIsProfilePictureModalOpen(false)
@@ -44,7 +49,13 @@ export const Profile = () => {
                     <label htmlFor='phone'>Telefone:</label>
                     <input
                         id='phone'
-                        defaultValue={user?.phone}
+                        defaultValue={format.phone(user?.phone)}
+                        onChange={event => {
+                            const _dataUser = dataUser
+                            _dataUser.phone = format.getOnlyNumbers(event.target.value)
+                            event.target.value = format.phone(event.target.value)
+                            setDataUser(_dataUser)
+                        }}
                     />
                     <button>
                         SALVAR
