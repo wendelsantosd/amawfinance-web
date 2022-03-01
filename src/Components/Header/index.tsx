@@ -24,7 +24,9 @@ export const Header = ({ isAuth }: HeaderProps) => {
         </DataLogo>
 
         {isAuth ?
-            <Info>
+            <Info
+                onClick={() => navigate('/profile')}
+            >
                 <p>{user?.name}</p>
                 <img 
                     src={user?.picture_url ? user?.picture_url : noAvatar} 
