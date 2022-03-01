@@ -5,21 +5,34 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import noAvatar from '../../assets/images/no_avatar.jpg'
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
+import { ProfilePictureModal } from '../../Components/profilePictureModal'
 import { Context } from '../../Contexts'
 import { Board, Container, Content, Form, ProfilePicture } from './profile.styles'
 
 export const Profile = () => {
     const [showPassword, setShowPassword] = useState(false)
+    const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] = useState(false)
     const { user } = useContext(Context)
+
+    const handleCloseProfilePictureModal = () => {
+        setIsProfilePictureModalOpen(false)
+    }
 
     return <Container>
         <Header isAuth/>
         <Content>
+            <ProfilePictureModal 
+                isOpen={isProfilePictureModalOpen}
+                onRequestClose={handleCloseProfilePictureModal}
+            />
             <Menu page={'profile'}/>
             <Board>
                 <ProfilePicture>
                     <img src={noAvatar} alt='Sem foto de perfil' />
-                    <BsFillCameraFill className='camera-icon'/>
+                    <BsFillCameraFill 
+                        className='camera-icon'
+                        onClick={() => setIsProfilePictureModalOpen(true)}
+                    />
                 </ProfilePicture>
                 <Form>
                     <label htmlFor='name'>Nome:</label>
