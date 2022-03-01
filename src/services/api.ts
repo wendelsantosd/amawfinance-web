@@ -14,7 +14,10 @@ interface APIRequestOptions {
     }
     body?: {
         [key: string]: any
-    }
+    },
+    headers?: {
+        [key: string]: any
+    },
     store?: boolean
 }
 
@@ -36,6 +39,7 @@ export const request = async ({
     route,
     query,
     body,
+    headers,
     store = false
 }: APIRequestOptions): Promise<{
     status: number,
@@ -52,7 +56,8 @@ export const request = async ({
             }
         }
 
-        const { status, data } = await api[method](route, body)
+        
+        const { status, data } = headers ? await api[method](route, body, headers) : await api[method](route, body)
 
         if (status === 200) {
             const keys = Object.keys(data)
