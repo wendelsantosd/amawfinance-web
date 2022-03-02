@@ -7,9 +7,11 @@ import { Container } from './sureModal.styles'
 interface NewTransactionModalProps {
     isOpen: boolean
     onRequestClose: () => void
+    onRequestDelete: () => Promise<void>
 }
 
-export const SureModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) => {
+export const SureModal = ({ isOpen, onRequestClose, onRequestDelete}: NewTransactionModalProps) => {
+
     return <Modal
         isOpen={isOpen}
         onRequestClose={onRequestClose}
@@ -26,8 +28,21 @@ export const SureModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) =
             <h2>Você tem certeza ?</h2>
 
             <div>
-                <button className='yes'>Sim</button>
-                <button className='no'>Não</button>
+                <button 
+                    className='yes'
+                    onClick={() => {
+                        onRequestDelete()
+                        onRequestClose()
+                    }}
+                >
+                    Sim
+                </button>
+                <button 
+                    className='no'
+                    onClick={onRequestClose}
+                >
+                    Não
+                </button>
             </div>
         </Container>
     </Modal>

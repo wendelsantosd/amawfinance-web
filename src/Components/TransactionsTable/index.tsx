@@ -1,12 +1,42 @@
 import React, { useContext, useState } from 'react'
+import { IoMdTrash } from 'react-icons/io'
+import { MdEdit } from 'react-icons/md'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Context } from '../../Contexts'
+import { SureModal } from '../SureModal'
 import { Container } from './transactionsTable.styles'
 
 export const TransactionsTable = () => {
-    const { transactions } = useContext(Context)
+    const { transactions, deleteTransaction } = useContext(Context)
+    const [isSureModalOpen, setIsSureModalOpen] = useState(false)
+    const [transactionId, setTransactionId] = useState('')
+
+    const handleCloseSureModal = () => {
+        setIsSureModalOpen(false)
+    }
+
+    const handleSubmitDeleteTransaction = async () => {
+        const result = await deleteTransaction(transactionId)
+
+        if (result?.status === 200) {
+            toast.success('Transação deletada com sucesso!')
+        } else {
+            toast.error('Ocorreu um erro ao deltar transação.')
+        }
+    }
 
     return <Container>
+        <SureModal 
+            isOpen={isSureModalOpen}
+            onRequestClose={handleCloseSureModal}
+            onRequestDelete={handleSubmitDeleteTransaction}
+        />
+        <ToastContainer 
+            theme='colored'
+            style={{ top: '13%'}}
+        />
         <table>
             <thead>
                 <tr>
@@ -30,6 +60,18 @@ export const TransactionsTable = () => {
                         <td>
                             {new Intl.DateTimeFormat('pt-BR')
                                 .format(new Date(transaction.created_at))}
+                        </td>
+                        <td>
+                            <MdEdit className='icon'/>
+                        </td>
+                        <td>
+                            <IoMdTrash 
+                                className='icon'
+                                onClick={() => {
+                                    setTransactionId(transaction.id)
+                                    setIsSureModalOpen(true)
+                                }}
+                            />
                         </td>
                     </tr>
                 )}

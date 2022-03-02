@@ -2,6 +2,15 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: fit-content;
+
+    .icon {
+        cursor: pointer;
+        transition: filter 0.5s ease;
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
     
     table {
         width: 100%;

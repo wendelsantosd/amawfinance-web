@@ -26,6 +26,8 @@ interface ContextData {
     passwordUpdate: (password: string) => Promise<any>
     // eslint-disable-next-line no-unused-vars
     createTransaction: (transaction: TransactionProps) => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    deleteTransaction: (id: string) => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -43,39 +45,12 @@ export const ContextProvider = ({ children }: ContextProps) => {
             if (storage.read('user')) {
                 setUser(storage.read('user'))
             } else {
-                const result = await api.request({
-                    method: 'get',
-                    route: '/user/data',
-                    query: {
-                        id: storage.read('id')
-                    },
-                })
-
-                if (result?.status === 200) {
-                    storage.write('user', result.data)
-                    setUser(storage.read('user'))
-                }
+                userData()
             }
         })()
     }, [])
 
     useEffect(() => {
-        // (async () => {
-        //     const result = await api.request({
-        //         method: 'get',
-        //         route: '/transaction/list-by-user-month-year',
-        //         query: {
-        //             id: storage.read('id'),
-        //             month,
-        //             year
-        //         }
-        //     })
-
-        //     if (result?.status === 200) {
-        //         setTransactions(result?.data)
-        //     }
-        // }
-        // )()
         listTransactions()
     }, [])
 
@@ -164,6 +139,23 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
         return result
     }
+
+    const deleteTransaction = async (id: string) => {
+        const result = await api.request({
+            method: 'delete',
+            route: 'transaction/delete',
+            query: {
+                id,
+                userId: user.id
+            }
+        })
+
+        if (result?.status === 200) {
+            listTransactions()
+        }
+
+        return result
+    }
     
     return <Context.Provider value={{
         signed: user ? true: false, 
@@ -174,7 +166,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
         userUpdate,
         emailUpdate,
         passwordUpdate,
-        createTransaction
+        createTransaction,
+        deleteTransaction
     }}>
         {children}
     </Context.Provider>
