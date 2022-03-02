@@ -1,24 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
+import { Context } from '../../Contexts'
 import { Container } from './transactionsTable.styles'
 
 export const TransactionsTable = () => {
-    const [transactions] = useState([
-        {
-            id: 1,
-            description: 'Desenvolvimento de APP',
-            amount: 2000,
-            type: 'income',
-            date: new Date('2022-02-12 09:00:00')
-        },
-        {
-            id: 2,
-            description: 'Conta de Luz',
-            amount: 1000,
-            type: 'expense',
-            date: new Date('2022-02-12 09:00:00')
-        }
-    ])
+    const { transactions } = useContext(Context)
 
     return <Container>
         <table>
@@ -31,7 +17,7 @@ export const TransactionsTable = () => {
             </thead>
 
             <tbody>
-                {transactions.map(transaction => 
+                {transactions?.map((transaction: any) => 
                     <tr key={transaction.id}>
                         <td>{transaction.description}</td>
                         <td className={transaction.type}>
@@ -43,7 +29,7 @@ export const TransactionsTable = () => {
                         </td>
                         <td>
                             {new Intl.DateTimeFormat('pt-BR')
-                                .format(new Date(transaction.date))}
+                                .format(new Date(transaction.created_at))}
                         </td>
                     </tr>
                 )}

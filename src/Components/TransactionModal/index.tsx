@@ -143,7 +143,6 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
 }
 
 // const convertCurrencyToNumber= () => {
-//     console.log(amount)
 //     let _amount = amount.split('R$ ')[1]
 
 //     if (_amount.includes('.')) {

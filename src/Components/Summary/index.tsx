@@ -10,7 +10,6 @@ export const Summary = () => {
     const { transactions } = useContext(Context)
 
     const summary = transactions?.reduce((acc: any, transaction: any) => {
-        console.log(transaction.type)
         if (transaction?.type == 'income') {
             acc.income += transaction.amount
             acc.total += transaction.amount

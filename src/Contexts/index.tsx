@@ -60,23 +60,24 @@ export const ContextProvider = ({ children }: ContextProps) => {
     }, [])
 
     useEffect(() => {
-        (async () => {
-            const result = await api.request({
-                method: 'get',
-                route: '/transaction/list-by-user-month-year',
-                query: {
-                    id: storage.read('id'),
-                    month,
-                    year
-                }
-            })
+        // (async () => {
+        //     const result = await api.request({
+        //         method: 'get',
+        //         route: '/transaction/list-by-user-month-year',
+        //         query: {
+        //             id: storage.read('id'),
+        //             month,
+        //             year
+        //         }
+        //     })
 
-            if (result?.status === 200) {
-                setTransactions(result?.data)
-            }
-        }
-        )()
-    }, [transactions])
+        //     if (result?.status === 200) {
+        //         setTransactions(result?.data)
+        //     }
+        // }
+        // )()
+        listTransactions()
+    }, [])
 
     const userData = async () => {
         const result = await api.request({
@@ -134,12 +135,32 @@ export const ContextProvider = ({ children }: ContextProps) => {
         return result
     }
 
+    const listTransactions = async () => {
+        const result = await api.request({
+            method: 'get',
+            route: '/transaction/list-by-user-month-year',
+            query: {
+                id: storage.read('id'),
+                month,
+                year
+            }
+        })
+
+        if (result?.status === 200) {
+            setTransactions(result?.data)
+        }
+    }
+
     const createTransaction = async (transaction: TransactionProps) => {
         const result = await api.request({
             method: 'post',
             route: `transaction/create?id=${user.id}`,
             body: transaction
         })
+
+        if (result?.status === 201) {
+            listTransactions()
+        }
 
         return result
     }
