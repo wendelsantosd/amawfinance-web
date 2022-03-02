@@ -34,7 +34,7 @@ const format = {
 
             return `${splitedDate[2]}/${splitedDate[1]}/${splitedDate[0]}`
         } catch (err: any) {
-            console.log(err.message)
+            return err.message
         }
     },
     

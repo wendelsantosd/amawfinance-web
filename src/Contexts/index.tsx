@@ -16,6 +16,7 @@ interface TransactionProps {
 interface ContextData {
     signed: boolean,
     user: any,
+    transactions: any
     setUser: React.Dispatch<any>
     userData: () => Promise<any>
     userUpdate: () => Promise<any>
@@ -33,6 +34,9 @@ export const Context = createContext<ContextData >(
 
 export const ContextProvider = ({ children }: ContextProps) => {
     const [user, setUser] = useState<any>()
+    const [transactions, setTransactions] = useState<any>()
+    const [month, setMonth] = useState(new Date().getMonth())
+    const [year, setYear] = useState(new Date().getFullYear())
 
     useEffect(() => {
         (async () => {
@@ -53,6 +57,25 @@ export const ContextProvider = ({ children }: ContextProps) => {
                 }
             }
         })()
+    }, [])
+
+    useEffect(() => {
+        (async () => {
+            const result = await api.request({
+                method: 'get',
+                route: '/transaction/list-by-user-month-year',
+                query: {
+                    id: storage.read('id'),
+                    month,
+                    year
+                }
+            })
+
+            if (result?.status === 200) {
+                setTransactions(result?.data)
+            }
+        }
+        )()
     }, [])
 
     const userData = async () => {
@@ -124,6 +147,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
     return <Context.Provider value={{
         signed: user ? true: false, 
         user,
+        transactions,
         setUser,
         userData,
         userUpdate,
