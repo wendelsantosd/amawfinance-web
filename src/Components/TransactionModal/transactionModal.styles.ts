@@ -40,6 +40,9 @@ export const Container = styled.div`
     }
 
     .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         height: 3rem;
         margin-top: 2rem;

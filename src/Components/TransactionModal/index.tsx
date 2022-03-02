@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import CloseIcon from '../../assets/icons/close.svg'
 import IncomeIcon from '../../assets/icons/income.svg'
 import ExpenseIcon from '../../assets/icons/outcome.svg'
+import { Context } from '../../Contexts'
+import { Loading } from '../../styles/utils.styles'
 import { Container, RadioBox, TransactionTypeContainer } from './transactionModal.styles'
 
 interface NewTransactionModalProps {
@@ -14,12 +19,27 @@ interface NewTransactionModalProps {
 
 export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) => {
     const [type, setType] = useState('income')
+    const { createTransaction } = useContext(Context)
+    const [loading, setLoading] = useState(false)
 
     const [transaction, setTransaction] = useState({
         description: '',
         amount: 0,
-        type: 'income'
+        type: 'income',
     })
+
+    const submit = async () => {
+        setLoading(true)
+        const result = await createTransaction(transaction)
+
+        if (result?.status === 201) {
+            setLoading(false)
+            onRequestClose()
+        } else {
+            setLoading(false)
+            toast.error('Ocorreu um erro ao cadastrar transação.')
+        }
+    }
 
     return <Modal
         isOpen={isOpen}
@@ -27,7 +47,12 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
         overlayClassName='react-modal-overlay'
         className='react-modal-content'
     >
+        <ToastContainer
+            theme='colored'
+            style={{ top: '13%' }}
+        />
         <button
+            disabled={loading}
             onClick={onRequestClose}
             className='react-modal-close'
         >
@@ -68,6 +93,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
 
             <TransactionTypeContainer>
                 <RadioBox
+                    disabled={loading}
                     type='button'
                     onClick={() => {
                         const _transaction = transaction
@@ -83,6 +109,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                 </RadioBox>
 
                 <RadioBox
+                    disabled={loading}
                     type='button'
                     onClick={() => {
                         const _transaction = transaction
@@ -99,10 +126,17 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
             </TransactionTypeContainer>
 
             <button 
-                onClick={()=> console.log(transaction)}
+                disabled={loading}
                 className='button'
+                onClick={submit}
             >
-                SALVAR
+                {loading ?
+                    <Loading>
+                        <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
+                    </Loading>
+                    :
+                    'SALVAR'
+                }
             </button>
         </Container>
     </Modal>

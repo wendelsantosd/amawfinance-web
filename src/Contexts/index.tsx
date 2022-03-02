@@ -1,4 +1,3 @@
-import { use } from 'echarts/lib/echarts'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 
 import api from '../services/api'
@@ -9,6 +8,11 @@ interface ContextProps {
     children: ReactNode
 }
 
+interface TransactionProps {
+    description: string
+    amount: number
+    type: string
+}
 interface ContextData {
     signed: boolean,
     user: any,
@@ -19,6 +23,8 @@ interface ContextData {
     emailUpdate: (email: string) => Promise<any>
     // eslint-disable-next-line no-unused-vars
     passwordUpdate: (password: string) => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    createTransaction: (transaction: TransactionProps) => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -104,6 +110,16 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
         return result
     }
+
+    const createTransaction = async (transaction: TransactionProps) => {
+        const result = await api.request({
+            method: 'post',
+            route: `transaction/create?id=${user.id}`,
+            body: transaction
+        })
+
+        return result
+    }
     
     return <Context.Provider value={{
         signed: user ? true: false, 
@@ -112,7 +128,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
         userData,
         userUpdate,
         emailUpdate,
-        passwordUpdate
+        passwordUpdate,
+        createTransaction
     }}>
         {children}
     </Context.Provider>
