@@ -10,7 +10,7 @@ import { SureModal } from '../SureModal'
 import { Container } from './transactionsTable.styles'
 
 export const TransactionsTable = () => {
-    const { transactions, deleteTransaction } = useContext(Context)
+    const { transactions, deleteTransaction, dataTransaction } = useContext(Context)
     const [isSureModalOpen, setIsSureModalOpen] = useState(false)
     const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false)
     const [transactionId, setTransactionId] = useState('')
@@ -42,6 +42,7 @@ export const TransactionsTable = () => {
         <EditTransactionModal 
             isOpen={isEditTransactionModalOpen}
             onRequestClose={handleCloseEditTransactionModal}
+            transactionId={transactionId}
         />
         <ToastContainer 
             theme='colored'
@@ -74,8 +75,9 @@ export const TransactionsTable = () => {
                         <td>
                             <MdEdit 
                                 className='icon'
-                                onClick={() => {
+                                onClick={async () => {
                                     setTransactionId(transaction.id)
+                                    await dataTransaction(transaction.id)
                                     setIsEditTransactionModalOpen(true)
                                 }}
                             />

@@ -17,7 +17,9 @@ interface ContextData {
     signed: boolean,
     user: any,
     transactions: any
+    transaction: any
     setUser: React.Dispatch<any>
+    setTransaction: React.Dispatch<any>
     userData: () => Promise<any>
     userUpdate: () => Promise<any>
     // eslint-disable-next-line no-unused-vars
@@ -28,6 +30,10 @@ interface ContextData {
     createTransaction: (transaction: TransactionProps) => Promise<any>
     // eslint-disable-next-line no-unused-vars
     deleteTransaction: (id: string) => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    dataTransaction: (id: string) => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    updateTransaction: (id: string) => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -37,6 +43,7 @@ export const Context = createContext<ContextData >(
 export const ContextProvider = ({ children }: ContextProps) => {
     const [user, setUser] = useState<any>()
     const [transactions, setTransactions] = useState<any>()
+    const [transaction, setTransaction] = useState<any>()
     const [month, setMonth] = useState(new Date().getMonth())
     const [year, setYear] = useState(new Date().getFullYear())
 
@@ -45,7 +52,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
             if (storage.read('user')) {
                 setUser(storage.read('user'))
             } else {
-                userData()
+                await userData()
             }
         })()
     }, [])
@@ -134,7 +141,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
         })
 
         if (result?.status === 201) {
-            listTransactions()
+            await listTransactions()
         }
 
         return result
@@ -151,7 +158,41 @@ export const ContextProvider = ({ children }: ContextProps) => {
         })
 
         if (result?.status === 200) {
-            listTransactions()
+            await listTransactions()
+        }
+
+        return result
+    }
+
+    const dataTransaction = async (id: string) => {
+        const result = await api.request({
+            method: 'get',
+            route: 'transaction/data',
+            query: {
+                id,
+                userId: user.id
+            }
+        })
+
+        if (result?.status === 200) {
+            setTransaction(result?.data)
+        }
+    }
+
+    const updateTransaction = async (id: string) => {
+        const result = await api.request({
+            method: 'put',
+            route: 'transaction/update',
+            query: {
+                id,
+                userId: user.id
+            },
+            body: transaction
+        })
+
+        if (result?.status === 200) {
+            setTransaction(result?.data)
+            await listTransactions()
         }
 
         return result
@@ -161,13 +202,17 @@ export const ContextProvider = ({ children }: ContextProps) => {
         signed: user ? true: false, 
         user,
         transactions,
+        transaction,
         setUser,
+        setTransaction,
         userData,
         userUpdate,
         emailUpdate,
         passwordUpdate,
         createTransaction,
-        deleteTransaction
+        deleteTransaction,
+        dataTransaction,
+        updateTransaction
     }}>
         {children}
     </Context.Provider>

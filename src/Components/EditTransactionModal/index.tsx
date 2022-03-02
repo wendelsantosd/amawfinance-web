@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ReactLoading from 'react-loading'
 import Modal from 'react-modal'
 import { ToastContainer, toast } from 'react-toastify'
@@ -13,31 +13,31 @@ import { Container, RadioBox, TransactionTypeContainer } from './transactionModa
 
 interface EditTransactionModalProps {
     isOpen: boolean
+    transactionId: string
     onRequestClose: () => void
 }
 
 
-export const EditTransactionModal = ({ isOpen, onRequestClose}: EditTransactionModalProps) => {
-    const [type, setType] = useState('income')
-    const { createTransaction } = useContext(Context)
+export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: EditTransactionModalProps) => {
+    const { transaction, setTransaction, updateTransaction } = useContext(Context)
+    const [type, setType] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const [transaction, setTransaction] = useState({
-        description: '',
-        amount: 0,
-        type: 'income',
-    })
+    useEffect(() => {
+        setType(transaction.type)
+    }, [transaction])
+
 
     const submit = async () => {
         setLoading(true)
-        const result = await createTransaction(transaction)
+        const result = await updateTransaction(transactionId)
 
         if (result?.status === 201) {
             setLoading(false)
             onRequestClose()
         } else {
             setLoading(false)
-            toast.error('Ocorreu um erro ao cadastrar transação.')
+            toast.error('Ocorreu um erro ao editar transação.')
         }
     }
 
@@ -59,12 +59,13 @@ export const EditTransactionModal = ({ isOpen, onRequestClose}: EditTransactionM
             <img src={CloseIcon} alt='Ícone de fechar' />
         </button>
         <Container>
-            <h2>Cadastrar transação</h2>
+            <h2>Editar transação</h2>
 
             <label htmlFor='description' className='sr-only'>Descrição</label>
             <input 
                 id='description'
                 placeholder='Descrição'
+                defaultValue={transaction?.description}
                 onChange={event => {
                     const _transaction = transaction
                     _transaction.description = event.target.value
@@ -77,6 +78,7 @@ export const EditTransactionModal = ({ isOpen, onRequestClose}: EditTransactionM
                 id='amount'
                 type='number'
                 placeholder='Valor'
+                defaultValue={transaction?.amount}
                 onChange={event => {
                     const _transaction = transaction
                     _transaction.amount = Number(event.target.value)
