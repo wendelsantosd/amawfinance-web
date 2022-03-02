@@ -32,7 +32,7 @@ export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: E
         setLoading(true)
         const result = await updateTransaction(transactionId)
 
-        if (result?.status === 201) {
+        if (result?.status === 200) {
             setLoading(false)
             onRequestClose()
         } else {
