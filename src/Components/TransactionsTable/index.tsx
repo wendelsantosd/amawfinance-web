@@ -5,16 +5,22 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Context } from '../../Contexts'
+import { EditTransactionModal } from '../EditTransactionModal'
 import { SureModal } from '../SureModal'
 import { Container } from './transactionsTable.styles'
 
 export const TransactionsTable = () => {
     const { transactions, deleteTransaction } = useContext(Context)
     const [isSureModalOpen, setIsSureModalOpen] = useState(false)
+    const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false)
     const [transactionId, setTransactionId] = useState('')
 
     const handleCloseSureModal = () => {
         setIsSureModalOpen(false)
+    }
+
+    const handleCloseEditTransactionModal = () => {
+        setIsEditTransactionModalOpen(false)
     }
 
     const handleSubmitDeleteTransaction = async () => {
@@ -32,6 +38,10 @@ export const TransactionsTable = () => {
             isOpen={isSureModalOpen}
             onRequestClose={handleCloseSureModal}
             onRequestDelete={handleSubmitDeleteTransaction}
+        />
+        <EditTransactionModal 
+            isOpen={isEditTransactionModalOpen}
+            onRequestClose={handleCloseEditTransactionModal}
         />
         <ToastContainer 
             theme='colored'
@@ -62,7 +72,13 @@ export const TransactionsTable = () => {
                                 .format(new Date(transaction.created_at))}
                         </td>
                         <td>
-                            <MdEdit className='icon'/>
+                            <MdEdit 
+                                className='icon'
+                                onClick={() => {
+                                    setTransactionId(transaction.id)
+                                    setIsEditTransactionModalOpen(true)
+                                }}
+                            />
                         </td>
                         <td>
                             <IoMdTrash 
