@@ -76,7 +76,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
             }
         }
         )()
-    }, [])
+    }, [transactions])
 
     const userData = async () => {
         const result = await api.request({

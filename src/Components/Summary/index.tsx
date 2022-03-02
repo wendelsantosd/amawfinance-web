@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import DollarIcon from '../../assets/icons/dollar.svg'
 import IncomeIcon from '../../assets/icons/income.svg'
 import ExpenseIcon from '../../assets/icons/outcome.svg'
+import { Context } from '../../Contexts'
 import { Card, Container } from './summary.styles'
 
 export const Summary = () => {
-    const summary = {
-        income: 2000,
-        expense: 1000,
-        total: 1000.33
-    }
+    const { transactions } = useContext(Context)
+
+    const summary = transactions?.reduce((acc: any, transaction: any) => {
+        console.log(transaction.type)
+        if (transaction?.type == 'income') {
+            acc.income += transaction.amount
+            acc.total += transaction.amount
+        } else {
+            acc.expense += transaction.amount
+            acc.total -= transaction.amount
+        }
+
+        return acc
+    }, {
+        income: 0,
+        expense: 0,
+        total: 0
+    })
 
     return <Container>
         <Card>
@@ -23,7 +37,7 @@ export const Summary = () => {
                 {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(summary.income)}
+                }).format(summary?.income)}
             </strong>
         </Card>
         <Card>
@@ -36,7 +50,7 @@ export const Summary = () => {
                 {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(summary.expense)}
+                }).format(summary?.expense)}
             </strong>
         </Card>
         <Card>
@@ -49,7 +63,7 @@ export const Summary = () => {
                 {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(summary.total)}
+                }).format(summary?.total)}
             </strong>
         </Card>
     </Container>
