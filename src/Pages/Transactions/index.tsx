@@ -5,11 +5,11 @@ import { Menu } from '../../Components/Menu'
 import { Summary } from '../../Components/Summary'
 import { TransactionModal } from '../../Components/TransactionModal'
 import { TransactionsTable } from '../../Components/TransactionsTable'
+import { Context } from '../../Contexts'
 import { Board, Column, Contain, Container, Content, Divider, Search } from './transactions.styles'
 
 export const Transactions = () => {
-    const [currentMonth] = useState(new Date().getMonth())
-    const [currentYear] = useState(new Date().getFullYear())
+    const { targetMonth, targetYear, setTargetMonth, setTargetYear, listTransactions } = useContext(Context)
     const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false)
 
     const [months] = useState(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'])
@@ -17,6 +17,10 @@ export const Transactions = () => {
 
     const handleCloseTransactionModal = () => {
         setIsTransactionModalOpen(false)
+    }
+
+    const submit = async () => {
+        await listTransactions()
     }
 
     return <Container>
@@ -32,12 +36,17 @@ export const Transactions = () => {
                     <Contain>
                         <Search>
                             <label htmlFor='month'>Mês:</label>
-                            <select id='month'>
+                            <select 
+                                id='month'
+                                onChange={event => {
+                                    setTargetMonth(Number(event.target.value))
+                                }}
+                            >
                                 {months.map((month, index) => 
                                     <option 
                                         key={month} 
                                         value={index}
-                                        selected={currentMonth === index ? true : false}
+                                        selected={targetMonth === index ? true : false}
                                     >
                                         {month}
                                     </option>
@@ -45,19 +54,26 @@ export const Transactions = () => {
                             </select>
 
                             <label htmlFor='year'>Ano:</label>
-                            <select id='year'>
+                            <select 
+                                id='year'
+                                onChange={event => {
+                                    setTargetYear(Number(event.target.value))
+                                }}
+                            >
                                 {years.map(year => 
                                     <option 
                                         key={year} 
                                         value={year}
-                                        selected={String(currentYear) === year ? true : false}
+                                        selected={String(targetYear) === year ? true : false}
                                     >
                                         {year}
                                     </option>
                                 )}
                             </select>
 
-                            <button>
+                            <button
+                                onClick={submit}
+                            >
                                 BUSCAR
                             </button>
                         </Search>

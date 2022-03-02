@@ -18,8 +18,12 @@ interface ContextData {
     user: any,
     transactions: any
     transaction: any
+    targetMonth: any
+    targetYear: any
     setUser: React.Dispatch<any>
     setTransaction: React.Dispatch<any>
+    setTargetMonth: React.Dispatch<any>
+    setTargetYear: React.Dispatch<any>
     userData: () => Promise<any>
     userUpdate: () => Promise<any>
     // eslint-disable-next-line no-unused-vars
@@ -34,6 +38,7 @@ interface ContextData {
     dataTransaction: (id: string) => Promise<any>
     // eslint-disable-next-line no-unused-vars
     updateTransaction: (id: string) => Promise<any>
+    listTransactions: () => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -44,8 +49,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
     const [user, setUser] = useState<any>()
     const [transactions, setTransactions] = useState<any>()
     const [transaction, setTransaction] = useState<any>('')
-    const [month, setMonth] = useState(new Date().getMonth())
-    const [year, setYear] = useState(new Date().getFullYear())
+    const [targetMonth, setTargetMonth] = useState(new Date().getMonth())
+    const [targetYear, setTargetYear] = useState(new Date().getFullYear())
 
     useEffect(() => {
         (async () => {
@@ -123,8 +128,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
             route: '/transaction/list-by-user-month-year',
             query: {
                 id: storage.read('id'),
-                month,
-                year
+                month: targetMonth,
+                year: targetYear
             }
         })
 
@@ -199,8 +204,12 @@ export const ContextProvider = ({ children }: ContextProps) => {
         user,
         transactions,
         transaction,
+        targetMonth,
+        targetYear,
         setUser,
         setTransaction,
+        setTargetMonth,
+        setTargetYear,
         userData,
         userUpdate,
         emailUpdate,
@@ -208,7 +217,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
         createTransaction,
         deleteTransaction,
         dataTransaction,
-        updateTransaction
+        updateTransaction,
+        listTransactions
     }}>
         {children}
     </Context.Provider>
