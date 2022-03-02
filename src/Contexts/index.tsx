@@ -43,7 +43,7 @@ export const Context = createContext<ContextData >(
 export const ContextProvider = ({ children }: ContextProps) => {
     const [user, setUser] = useState<any>()
     const [transactions, setTransactions] = useState<any>()
-    const [transaction, setTransaction] = useState<any>()
+    const [transaction, setTransaction] = useState<any>('')
     const [month, setMonth] = useState(new Date().getMonth())
     const [year, setYear] = useState(new Date().getFullYear())
 
