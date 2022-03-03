@@ -1,4 +1,4 @@
-import { init, graphic } from 'echarts'
+import { init } from 'echarts'
 import React, { useEffect } from 'react'
 
 import { Container } from './chart.style'
