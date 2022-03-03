@@ -6,6 +6,7 @@ import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
 import { Context } from '../../Contexts'
 import api from '../../services/api'
+import storage from '../../services/storage'
 import { Loading } from '../../styles/utils.styles'
 import { Board, Container, Content, Search } from './charts.styles'
 
@@ -14,7 +15,7 @@ export const Charts = () => {
     const [years] = useState([2021,2022,2023,2024])
     const [targetYear, setTargetYear] = useState(new Date().getFullYear())
     const [sum, setSum] = useState<object>()
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         submit()
@@ -26,15 +27,13 @@ export const Charts = () => {
             method: 'get',
             route: '/transaction/list-by-user-year',
             query: {
-                id: user.id,
+                id: storage.read('id') ? storage.read('id') : user.id,
                 year: targetYear
             }
         })
 
-        if (result?.status === 200) {
+        if(result?.status === 200) {
             setSum(result?.data)
-            setLoading(false)
-        } else {
             setLoading(false)
         }
     }
@@ -45,7 +44,7 @@ export const Charts = () => {
             <Menu page={'charts'}/>
             <Board>
                 <Search>
-                    <label htmlFor='year' onClick={() => console.log(sum)}>Ano:</label>
+                    <label htmlFor='year' onClick={() =>console.log(sum)}>Ano:</label>
                     <select id='year'
                         onChange={event => {
                             setTargetYear(Number(event.target.value))
