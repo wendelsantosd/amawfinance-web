@@ -8,6 +8,7 @@ import { Card, Container } from './summary.styles'
 
 export const Summary = () => {
     const { transactions } = useContext(Context)
+    
 
     const summary = transactions?.reduce((acc: any, transaction: any) => {
         if (transaction?.type == 'income') {
