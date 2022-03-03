@@ -41,7 +41,7 @@ export const Menu = ({ page }: MenuProps) => {
             isActive={page === 'logout'}
             onClick={() => {
                 storage.clear('all')
-                navigate('/')
+                navigate('/login')
             }}
         >
             <MdLogout className='icon-belongs-menu'/>

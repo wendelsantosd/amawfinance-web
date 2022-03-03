@@ -175,7 +175,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
             route: 'transaction/data',
             query: {
                 id,
-                userId: user.id
+                userId: storage.read('id')
             }
         })
 

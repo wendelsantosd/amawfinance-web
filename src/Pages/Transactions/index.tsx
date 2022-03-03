@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
@@ -18,6 +18,10 @@ export const Transactions = () => {
     const handleCloseTransactionModal = () => {
         setIsTransactionModalOpen(false)
     }
+
+    useEffect(() => {
+        submit()
+    }, [])
 
     const submit = async () => {
         await listTransactions()
