@@ -11,18 +11,46 @@ import { Transactions } from '../Pages/Transactions'
 import storage from '../services/storage'
 
 const isAuth = storage.read('token')
-console.log(isAuth)
+
+
+const PrivateRoute = ({ children, redirectTo }: any) => {
+    const isAuthenticated = storage.read('token') !== null
+
+    return isAuthenticated ? children : <Navigate to={redirectTo} />
+}
+
 
 export const Router = () =>
     <BrowserRouter>
         <Routes>
+            <Route
+                path="/profile"
+                element={
+                    <PrivateRoute redirectTo="/">
+                        <Profile />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/charts"
+                element={
+                    <PrivateRoute redirectTo="/">
+                        <Charts />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/transactions"
+                element={
+                    <PrivateRoute redirectTo="/">
+                        <Transactions />
+                    </PrivateRoute>
+                }
+            />
             <Route path='/login' element={<Login />} />
             <Route path='/alter-password/:token' element={<AlterPassword />} />
-            <Route path='/charts' element={<Charts/>} />
-            <Route path='/profile' element={<Profile />} />
             <Route path='/recover-password' element={<RecoverPassword />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/transactions' element={<Transactions />} />
             <Route path="/" element={isAuth ? <Transactions /> : <Login />}/>
         </Routes>
     </BrowserRouter>
