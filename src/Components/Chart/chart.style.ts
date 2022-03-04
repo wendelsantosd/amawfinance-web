@@ -20,6 +20,6 @@ export const Container = styled.div`
     }
 
     @media(max-width: 800px) {
-        height: 40%;
+        height: 50%;
     }
 `
