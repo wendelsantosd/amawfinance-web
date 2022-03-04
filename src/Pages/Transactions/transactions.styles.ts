@@ -11,10 +11,18 @@ export const Column = styled.div`
     align-items: center;
     margin: 1.5rem;
     width: 100%;
+    
+    @media (max-width: 580px) {
+        margin-top: -2rem;
+    }
 `
 
 export const Content = styled.div`
     display: flex;
+
+    @media (max-width: 580px) {
+        flex-direction: column;
+    }
 `
 
 export const Board = styled.div`
@@ -26,6 +34,11 @@ export const Board = styled.div`
     width: 100%;
     height: fit-content;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    @media (max-width: 580px) {
+        background: transparent;
+        box-shadow: none;
+    }
 `
 
 export const Contain = styled.div`
@@ -35,6 +48,10 @@ export const Contain = styled.div`
 
     @media (max-width: 1200px) {
         width: 900px;
+    }
+
+    @media (max-width: 1270px) {
+        align-items: center;
     }
 
     .btn-new-transaction {
@@ -59,8 +76,13 @@ export const Contain = styled.div`
 export const Search = styled.div`
     display: flex;
     align-items: center;
-    width: 30rem;
+    width: fit-content;
     margin: 0 auto 6rem auto;
+
+    @media (max-width: 1270px) {
+        align-items: center;
+        margin-bottom: 1rem;
+    }
 
     label {
         font-weight: 600;

@@ -7,6 +7,10 @@ export const Container = styled.div`
 
 export const Content = styled.div`
     display: flex;
+
+     @media (max-width: 580px) {
+        flex-direction: column;
+    }
 `
 
 export const Board = styled.div`

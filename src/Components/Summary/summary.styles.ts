@@ -4,6 +4,12 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+
+    @media (max-width: 1270px) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 `
 
 export const Card = styled.div`
@@ -35,5 +41,13 @@ export const Card = styled.div`
         font-weight: 700;
         color: var(--black-200);
         font-size: 2rem;
+    }
+
+    @media (max-width: 1270px) {
+        margin-bottom: 1rem;
+    }
+
+     @media (max-width: 580px) {
+        background: var(--white);
     }
 `
