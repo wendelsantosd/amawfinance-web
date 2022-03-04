@@ -14,10 +14,28 @@ export const GlobalStyle = createGlobalStyle`
     :root {
         --white: #FFFFFF;
         --background: #FAF6F4;
-
+        
+        --white-300: #DDDADA;
+        --white-350: #F2F2F2;
+        --white-400: #F4F4F6;        
+        --white-450: #F4F4F4;        
+        --white-600: #F8F8F8;
+        
+        --black-200: #363F5F;
+        --black-300: #3F4A5B;
         --black-500: #454149;
-
+        --black-600: #323233;
+        
         --grey-300: #6F8AA5;
+        --grey-400: #6D7B8C;
+
+        --red-300: #E52E4D;
+        --red-600: #B22222;
+
+        --green-300: #33CC95;
+
+        --blue-transparent: rgba(0, 114, 229, 0.2);
+        --blue-500: #0C6FF9;
     }
 
     html {
@@ -77,6 +95,44 @@ export const GlobalStyle = createGlobalStyle`
         clip: rect(0, 0, 0, 0);
         white-space: nowrap;
         border-width: 0;
+    }
+
+    .react-modal-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: rgba(0, 0, 0, 0.6);
+
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+    }
+
+    .react-modal-content {
+        width: 100%;
+        max-width: 576px;
+        padding: 3rem;
+        position: relative;
+        border-radius: 0.5rem;
+        background: var(--white);
+    }
+
+    .react-modal-close {
+        position: absolute;
+        right: 1.5rem;
+        top: 1.5rem;
+        border: 0;
+        background: transparent;
+
+        transition: filter 0.5s ease;
+
+        &:hover {
+            filter: brightness(0.8);
+        }
     }
 
 `
