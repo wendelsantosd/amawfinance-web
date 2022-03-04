@@ -21,7 +21,7 @@ interface APIRequestOptions {
     store?: boolean
 }
 
-const baseURL = 'http://localhost:3333'
+const baseURL = 'https://api.amawfinance.com.br'
 
 const api: CustomAxiosInstance = axios.create({ baseURL })
 
