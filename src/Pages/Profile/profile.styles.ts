@@ -7,6 +7,10 @@ export const Container = styled.div`
 
 export const Content = styled.div`
     display: flex;
+
+    @media (max-width: 580px) {
+        flex-direction: column;
+    }
 `
 
 export const Board = styled.div`
@@ -18,6 +22,11 @@ export const Board = styled.div`
     background: var(--white);
     width: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
+    @media (max-width: 580px) {
+     background: transparent;
+     box-shadow: 0px 0px 0px;
+    }
 `
 
 export const ProfilePicture = styled.div`

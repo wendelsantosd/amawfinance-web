@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: relative;
-    width: 14rem;
+    min-width: 12rem;
+    max-width: fit-content;
     min-height: calc(100vh - 5rem);
     background: var(--white);
     padding-top: 2rem;
@@ -13,8 +14,24 @@ export const Container = styled.div`
         font-weight: 700;
         font-size: 0.7rem;
         color: var(--grey-300);
-        width: 100%;
+        min-width: 100%;
         text-align: center;
+    }
+
+    @media (max-width: 580px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        z-index: 1;
+        min-height: 2rem;
+        padding-top: 0;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--grey-300);
+
+        .text-amaw-version {
+            display: none;
+        }
     }
 `
 
@@ -49,5 +66,15 @@ export const Option = styled.div<OptionProps>`
     &:hover {
         background: var(--white-350);
         color: var(--black-300);
+    }
+
+    @media (max-width: 580px) {
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        height: 3rem;
+        width: 100%;
+        padding-left: 0.4rem;
+        overflow: hidden;
     }
 `

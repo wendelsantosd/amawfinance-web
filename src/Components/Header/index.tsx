@@ -37,5 +37,6 @@ export const Header = ({ isAuth }: HeaderProps) => {
             :
             null
         }
+
     </Container>
 }
