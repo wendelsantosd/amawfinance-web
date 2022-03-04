@@ -23,6 +23,10 @@ export const Container = styled.div`
             padding: 0 2rem;
             text-align: left;
             line-height: 1.5rem;
+
+            @media (max-width: 580px) {
+                display: none;
+            }
         }
 
         tr {
@@ -34,15 +38,27 @@ export const Container = styled.div`
             padding: 1rem 2rem;
             border: 0;
             background: var(--white-450);
-            
 
+            @media (max-width: 580px) {
+                display: flex;
+                background: var(--white);
+                min-width: 20rem;
+            }
 
             &:first-child {
                 border-radius: 1rem 0  0  1rem;
+                
+                @media (max-width: 580px) {
+                    border-radius: 1rem 1rem  0  0rem;
+                }
             }
 
             &:last-child {
-                    border-radius: 0  1rem  1rem  0;
+                border-radius: 0 1rem 1rem 0;
+
+                @media (max-width: 580px) {
+                    border-radius: 0  0 1rem 1rem;
+                }
             }
 
             &.income {
