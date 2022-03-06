@@ -21,7 +21,7 @@ interface APIRequestOptions {
     store?: boolean
 }
 
-const baseURL = 'http://localhost:3333'
+const baseURL = 'http://192.168.1.107:3333'
 
 const api: CustomAxiosInstance = axios.create({ baseURL })
 

@@ -4,7 +4,6 @@ export const PrimaryContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
 `
 
 export const TextHeaderForm = styled.p`
@@ -12,6 +11,7 @@ export const TextHeaderForm = styled.p`
     font-weight: 700;
     font-size: 1.5rem;
     margin-bottom: 1.2rem;
+    overflow: hidden;
 `
 
 export const Form = styled.form`
@@ -25,8 +25,11 @@ export const Form = styled.form`
     margin-top: 4rem;
     padding: 2rem;
     background: var(--white);
+    height:fit-content;
 
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    margin-bottom: 2rem;
 
     @media (max-width: 480px) {
      background: transparent;
@@ -129,7 +132,7 @@ export const TextQuestion = styled.p`
     color: var(--grey-400);
     font-size: 0.8rem;
     font-weight: 600;
-
+    overflow: hidden;
     transition: filter 0.2s;
         
     span {

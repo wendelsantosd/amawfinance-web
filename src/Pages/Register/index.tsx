@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import  ReactLoading from 'react-loading'
+import ReactLoading from 'react-loading'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -60,7 +60,7 @@ export const Register = () => {
             setErrorMessageConfirmPassword('Preencha corretamente.')
         } else if (confirmPassword !== user.password) {
             setErrorMessageConfirmPassword('Senhas não conferem.')
-        }else {
+        } else {
             setErrorMessageConfirmPassword('')
             _validateConfirmPassword = true
         }
@@ -98,9 +98,9 @@ export const Register = () => {
             theme='colored'
             style={{ top: '13%' }}
         />
-        <Header isAuth={false}/>
+        <Header isAuth={false} />
         {successRegister ?
-            <MessageSendEmail 
+            <MessageSendEmail
                 type='register'
             />
             :
@@ -123,9 +123,9 @@ export const Register = () => {
                         {errorMessageName}
                     </ErrorMessage>
                     :
-                    null    
+                    null
                 }
-            
+
                 <label htmlFor='email' className='sr-only'>E-mail</label>
                 <PrimaryInput
                     id='email'
@@ -142,7 +142,7 @@ export const Register = () => {
                         {errorMessageEmail}
                     </ErrorMessage>
                     :
-                    null    
+                    null
                 }
 
                 <label htmlFor='password' className='sr-only'>Senha</label>
@@ -161,12 +161,12 @@ export const Register = () => {
                         }}
                     />
                     {showPassword ?
-                        <FaEyeSlash 
+                        <FaEyeSlash
                             className='eye-icon'
                             onClick={() => setShowPassword(false)}
                         />
                         :
-                        <FaEye 
+                        <FaEye
                             className='eye-icon'
                             onClick={() => setShowPassword(true)}
                         />
@@ -177,7 +177,7 @@ export const Register = () => {
                         {errorMessagePassword}
                     </ErrorMessage>
                     :
-                    null    
+                    null
                 }
 
 
@@ -196,12 +196,12 @@ export const Register = () => {
                     />
 
                     {showPassword ?
-                        <FaEyeSlash 
+                        <FaEyeSlash
                             className='eye-icon'
                             onClick={() => setShowPassword(false)}
                         />
                         :
-                        <FaEye 
+                        <FaEye
                             className='eye-icon'
                             onClick={() => setShowPassword(true)}
                         />
@@ -212,7 +212,7 @@ export const Register = () => {
                         {errorMessageConfirmPassword}
                     </ErrorMessage>
                     :
-                    null    
+                    null
                 }
 
 
@@ -225,7 +225,7 @@ export const Register = () => {
                 >
                     {loading ?
                         <Loading>
-                            <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'}  />
+                            <ReactLoading type={'spinningBubbles'} color={'#fff'} height={'30px'} width={'30px'} />
                         </Loading>
                         :
                         'REGISTRAR'
