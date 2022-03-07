@@ -20,21 +20,21 @@ export const Menu = ({ page }: MenuProps) => {
             isActive={page === 'profile'}
             onClick={() => navigate('/profile')}
         >
-            <IoPerson className='icon-belongs-menu'/>
-            <p>Dados Pessoais</p>
+            <IoPerson className='icon-belongs-menu' />
+            <p>Meus Dados</p>
         </Option>
         <Option
             isActive={page === 'transactions'}
             onClick={() => navigate('/transactions')}
         >
-            <AiFillDollarCircle className='icon-belongs-menu'/>
+            <AiFillDollarCircle className='icon-belongs-menu' />
             <p>Transações</p>
         </Option>
         <Option
             isActive={page === 'charts'}
             onClick={() => navigate('/charts')}
         >
-            <MdInsertChart className='icon-belongs-menu'/>
+            <MdInsertChart className='icon-belongs-menu' />
             <p>Gráficos</p>
         </Option>
         <Option
@@ -44,10 +44,10 @@ export const Menu = ({ page }: MenuProps) => {
                 navigate('/login')
             }}
         >
-            <MdLogout className='icon-belongs-menu'/>
+            <MdLogout className='icon-belongs-menu' />
             <p>Sair</p>
         </Option>
-        
+
         <div className='text-amaw-version'>
             <p>Amaw Finance 2022</p>
             <p>v.{packageInfo.version}</p>
