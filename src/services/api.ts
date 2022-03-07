@@ -21,7 +21,7 @@ interface APIRequestOptions {
     store?: boolean
 }
 
-const baseURL = 'http://192.168.1.107:3333'
+const baseURL = 'https://amawfinance-api.herokuapp.com/'
 
 const api: CustomAxiosInstance = axios.create({ baseURL })
 
