@@ -16,6 +16,7 @@ import { GoogleButton } from './login.style'
 
 
 
+
 export const Login = () => {
     const { userData } = useContext(Context)
     const [showPassword, setShowPassword] = useState(false)
@@ -105,6 +106,10 @@ export const Login = () => {
         } else {
             toast.error('Ocorreu um erro no login com a Google.')
         }
+    }
+
+    const errorGoogleLogin = async (response: any) => {
+        console.log(response)
     }
 
     return <PrimaryContainer>
@@ -224,6 +229,7 @@ export const Login = () => {
                     </GoogleButton>
                 }
                 onSuccess={googleSubmit}
+                onFailure={errorGoogleLogin}
                 cookiePolicy={'single_host_origin'}
             />
         </Form>
