@@ -108,6 +108,10 @@ export const Login = () => {
         }
     }
 
+    const errorGoogleLogin = async (response: any) => {
+        console.log(response)
+    }
+
     return <PrimaryContainer>
         <ToastContainer
             theme='colored'
@@ -225,6 +229,7 @@ export const Login = () => {
                     </GoogleButton>
                 }
                 onSuccess={googleSubmit}
+                onFailure={errorGoogleLogin}
                 cookiePolicy={'single_host_origin'}
             />
         </Form>
