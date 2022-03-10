@@ -101,6 +101,7 @@ export const ContainerPasswordInput = styled.div`
 
     .input-password {
         position: absolute;
+        color: var(--grey-300);
         width: 100%;
         height: 100%;
         border: none;
