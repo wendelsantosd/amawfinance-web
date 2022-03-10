@@ -8,7 +8,7 @@ import { Card, Container } from './summary.styles'
 
 export const Summary = () => {
     const { transactions } = useContext(Context)
-    
+
 
     const summary = transactions?.reduce((acc: any, transaction: any) => {
         if (transaction?.type == 'income') {
@@ -37,7 +37,7 @@ export const Summary = () => {
                 {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(summary?.income)}
+                }).format(summary?.income) ?? 'R$ 0,00'}
             </strong>
         </Card>
         <Card>
@@ -50,7 +50,7 @@ export const Summary = () => {
                 {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(summary?.expense)}
+                }).format(summary?.expense) ?? 'R$ 0,00'}
             </strong>
         </Card>
         <Card>
@@ -63,7 +63,7 @@ export const Summary = () => {
                 {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                }).format(summary?.total)}
+                }).format(summary?.total) ?? 'R$ 0,00'}
             </strong>
         </Card>
     </Container>
