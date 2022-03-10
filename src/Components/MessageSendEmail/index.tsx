@@ -8,7 +8,7 @@ interface MessageSendEmailProps {
     type: string
 }
 
-export const MessageSendEmail = ({ type }: MessageSendEmailProps ) => {
+export const MessageSendEmail = ({ type }: MessageSendEmailProps) => {
     const navigate = useNavigate()
 
     return <Container className='animate-up'>
@@ -19,21 +19,21 @@ export const MessageSendEmail = ({ type }: MessageSendEmailProps ) => {
         {type === 'register' ?
             <>
                 <p>
-            Conta criada com sucesso!
+                    Conta criada com sucesso!
                 </p>
                 <p>
-            Confirme seu e-mail para fazer login.
+                    Confirme seu e-mail para fazer login.
                 </p>
             </>
             :
-            null 
+            null
         }
 
         <p>
             Por favor, se necessário, verifique a caixa de spam.
         </p>
-        
-       
+
+
         <PrimaryButton
             onClick={() => navigate('/')}
         >
