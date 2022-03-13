@@ -37,6 +37,7 @@ export const Profile = () => {
     }
 
     const validateData = () => {
+        console.log(user.phone.length)
         let _validateName = false
         let _validatePhone = false
 
@@ -47,7 +48,7 @@ export const Profile = () => {
             _validateName = true
         }
 
-        if (user.phone.length === 12 || user.phone.length < 1) {
+        if (user.phone.length === 11 || user.phone.length < 1) {
             setErrorMessagePhone('')
             _validatePhone = true
         } else {

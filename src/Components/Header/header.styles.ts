@@ -47,5 +47,6 @@ export const Info = styled.div`
         border-radius: 50%;
         border: 2px solid var(--grey-300);
         height: 3rem;
+        width: 3rem;
     }
 `
