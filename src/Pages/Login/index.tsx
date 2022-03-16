@@ -120,11 +120,16 @@ export const Login = () => {
         <Header isAuth={false} />
         <Form className='animate-up'>
             <TextHeaderForm className='title'>Entrar</TextHeaderForm>
-            <TextQuestion className='question'>
+            <TextQuestion 
+                className='question'
+            >
                 Não tem uma conta?
-                <span onClick={() => {
-                    if (!loading) navigate('/register')
-                }}>
+                <span
+                    id='redirect-register'
+                    onClick={() => {
+                        if (!loading) navigate('/register')
+                    }}
+                >
                     {' Clique aqui.'}
                 </span>
             </TextQuestion>
