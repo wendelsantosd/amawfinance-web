@@ -147,6 +147,7 @@ export const AlterPassword = () => {
             }
 
             <PrimaryButton
+                id='btn-alter-password'
                 onClick={event => {
                     event.preventDefault()
                     submit()
