@@ -80,6 +80,7 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
     }
 
     return <Modal
+        id='modal-profile-picture'
         isOpen={isOpen}
         onRequestClose={onRequestClose}
         overlayClassName='react-modal-overlay'
@@ -90,6 +91,7 @@ export const ProfilePictureModal = ({ isOpen, onRequestClose}: NewTransactionMod
             style={{ top: '13%' }}
         />
         <button
+            id='close-modal-pf'
             onClick={onRequestClose}
             className='react-modal-close'
             disabled={loading}

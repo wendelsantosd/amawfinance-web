@@ -166,6 +166,7 @@ export const Profile = () => {
                 <ProfilePicture>
                     <img src={user?.picture_url ? user?.picture_url : noAvatar} alt='Sem foto de perfil' />
                     <BsFillCameraFill 
+                        id='camera-icon'
                         className='camera-icon'
                         onClick={() => setIsProfilePictureModalOpen(true)}
                     />
@@ -211,6 +212,7 @@ export const Profile = () => {
                     }
 
                     <button
+                        id='btn-save'
                         disabled={loading1 || loading2}
                         onClick={event => {
                             event.preventDefault()
@@ -261,6 +263,7 @@ export const Profile = () => {
                     }
 
                     <button
+                        id='btn-alter-email'
                         disabled={loading1 || loading2}
                         onClick={event => {
                             event.preventDefault()
@@ -335,6 +338,7 @@ export const Profile = () => {
                     }
 
                     <button
+                        id='btn-alter-password'
                         disabled={loading1 || loading2}
                         onClick={event => {
                             event.preventDefault()
