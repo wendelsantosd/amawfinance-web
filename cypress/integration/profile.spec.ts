@@ -16,7 +16,7 @@ describe('Profile Page', () => {
         cy.visit('http://localhost:3000/profile')
     })
 
-    it('should be open and close modal to alter profile picture', () => {
+    it('should be able to open and close modal to alter profile picture', () => {
         cy.get('#camera-icon').click()
 
         cy.get('#modal-profile-picture')
@@ -24,7 +24,7 @@ describe('Profile Page', () => {
         cy.get('#close-modal-pf').click()
     })
 
-    it('should be alter name and phone user', () => {
+    it('should be able to alter name and phone user', () => {
         cy.get('#name').clear()
 
         cy.get('#name').type('User Altered')
@@ -36,7 +36,7 @@ describe('Profile Page', () => {
         cy.get('#btn-save').click()
     })
 
-    it('should be alter email', () => {
+    it('should be able to alter email', () => {
         cy.get('#email').clear()
 
         cy.get('#email').type('useraltered@provider.com')
@@ -48,7 +48,7 @@ describe('Profile Page', () => {
         cy.get('#btn-alter-email').click()
     })
 
-    it('should be alter password', () => {
+    it('should be able to alter password', () => {
         cy.get('#password').type('usertest')
             .should('have.value', 'usertest')
 

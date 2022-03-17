@@ -76,6 +76,7 @@ export const Transactions = () => {
                             </select>
 
                             <button
+                                id='btn-search'
                                 onClick={submit}
                             >
                                 BUSCAR
@@ -84,7 +85,8 @@ export const Transactions = () => {
                         <Summary />
                         <div>
                         </div>
-                        <button 
+                        <button
+                            id='new-transaction'
                             className='btn-new-transaction'
                             onClick={() => setIsTransactionModalOpen(true)}
                         >

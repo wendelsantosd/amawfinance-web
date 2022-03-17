@@ -13,6 +13,7 @@ interface NewTransactionModalProps {
 export const SureModal = ({ isOpen, onRequestClose, onRequestDelete}: NewTransactionModalProps) => {
 
     return <Modal
+        id='sure-modal'
         isOpen={isOpen}
         onRequestClose={onRequestClose}
         overlayClassName='react-modal-overlay'
@@ -28,7 +29,8 @@ export const SureModal = ({ isOpen, onRequestClose, onRequestDelete}: NewTransac
             <h2>Você tem certeza ?</h2>
 
             <div>
-                <button 
+                <button
+                    id='btn-yes' 
                     className='yes'
                     onClick={() => {
                         onRequestDelete()
@@ -37,7 +39,8 @@ export const SureModal = ({ isOpen, onRequestClose, onRequestDelete}: NewTransac
                 >
                     Sim
                 </button>
-                <button 
+                <button
+                    id='btn-no' 
                     className='no'
                     onClick={onRequestClose}
                 >
