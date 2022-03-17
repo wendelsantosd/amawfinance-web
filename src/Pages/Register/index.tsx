@@ -217,6 +217,7 @@ export const Register = () => {
 
 
                 <PrimaryButton
+                    id='btn-register'
                     onClick={event => {
                         event.preventDefault()
                         submit()
@@ -234,9 +235,12 @@ export const Register = () => {
 
                 <TextQuestion className='question'>
                     Já tem uma conta?
-                    <span onClick={() => {
-                        if (!loading) navigate('/')
-                    }}>
+                    <span 
+                        id='register-redirect-login'
+                        onClick={() => {
+                            if (!loading) navigate('/login')
+                        }}
+                    >
                         {' Clique aqui.'}
                     </span>
                 </TextQuestion>
