@@ -103,9 +103,15 @@ export const Profile = () => {
         const isValid = validateEmail()
 
         if (isValid) {
-            await emailUpdate(user?.email)
+            const result = await emailUpdate(user?.email)
 
-            toast.success('E-mail enviando para confirmação !')
+            if (result?.status === 200) {
+                toast.success('E-mail enviando para confirmação !')
+            } else if (result?.status === 400) {
+                toast.error('E-mail já está em uso.')
+            } else {
+                toast.error('Ocorreu um erro.')
+            }
         }
     }
 
