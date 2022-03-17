@@ -12,7 +12,7 @@ export const MessageSendEmail = ({ type }: MessageSendEmailProps) => {
     const navigate = useNavigate()
 
     return <Container 
-        id='message-send-emil'
+        id='message-send-email'
         className='animate-up'
     >
         <TextHeaderForm>

@@ -18,7 +18,7 @@ describe('Register page', () => {
         
         cy.get('#btn-register').click()
 
-        cy.get('#message-send-emil')
+        cy.get('#message-send-email')
 
         cy.get('#mse-redirect-login').click()
 
@@ -27,7 +27,7 @@ describe('Register page', () => {
 
     it('should be able redirect to login page', () => {
         cy.get('#register-redirect-login').click()
-        
+
         cy.url().should('eq', 'http://localhost:3000/login')
     })
 })

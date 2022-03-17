@@ -78,6 +78,7 @@ export const RecoverPassword = () => {
                 }
 
                 <PrimaryButton
+                    id='btn-recover-password'
                     onClick={event => {
                         event.preventDefault()
                         submit()
@@ -86,7 +87,14 @@ export const RecoverPassword = () => {
                     RECUPERAR
                 </PrimaryButton>
 
-                <TextQuestion>Login? <span onClick={() => navigate('/')}>Clique aqui.</span></TextQuestion>
+                <TextQuestion>Login? 
+                    <span
+                        id='rp-redirect-login'
+                        onClick={() => navigate('/login')}
+                    >
+                        Clique aqui.
+                    </span>
+                </TextQuestion>
             </Form>
         }
     </PrimaryContainer>
