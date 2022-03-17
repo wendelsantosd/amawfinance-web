@@ -11,7 +11,10 @@ interface MessageSendEmailProps {
 export const MessageSendEmail = ({ type }: MessageSendEmailProps) => {
     const navigate = useNavigate()
 
-    return <Container className='animate-up'>
+    return <Container 
+        id='message-send-email'
+        className='animate-up'
+    >
         <TextHeaderForm>
             E-mail enviado!
         </TextHeaderForm>
@@ -35,7 +38,8 @@ export const MessageSendEmail = ({ type }: MessageSendEmailProps) => {
 
 
         <PrimaryButton
-            onClick={() => navigate('/')}
+            id='mse-redirect-login'
+            onClick={() => navigate('/login')}
         >
             LOGIN
         </PrimaryButton>

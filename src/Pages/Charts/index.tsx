@@ -62,6 +62,7 @@ export const Charts = () => {
                     </select>
 
                     <button
+                        id='btn-search'
                         onClick={submit}
                     >
                         BUSCAR

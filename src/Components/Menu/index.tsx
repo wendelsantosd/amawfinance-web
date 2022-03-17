@@ -17,6 +17,7 @@ export const Menu = ({ page }: MenuProps) => {
 
     return <Container>
         <Option
+            id='option-profile'
             isActive={page === 'profile'}
             onClick={() => navigate('/profile')}
         >
@@ -24,6 +25,7 @@ export const Menu = ({ page }: MenuProps) => {
             <p>Meus Dados</p>
         </Option>
         <Option
+            id='option-transactions'
             isActive={page === 'transactions'}
             onClick={() => navigate('/transactions')}
         >
@@ -31,6 +33,7 @@ export const Menu = ({ page }: MenuProps) => {
             <p>Transações</p>
         </Option>
         <Option
+            id='option-charts'
             isActive={page === 'charts'}
             onClick={() => navigate('/charts')}
         >
@@ -38,6 +41,7 @@ export const Menu = ({ page }: MenuProps) => {
             <p>Gráficos</p>
         </Option>
         <Option
+            id='option-logout'
             isActive={page === 'logout'}
             onClick={() => {
                 storage.clear('all')

@@ -73,7 +73,8 @@ export const TransactionsTable = () => {
                                 .format(new Date(transaction.created_at))}
                         </td>
                         <td>
-                            <MdEdit 
+                            <MdEdit
+                                id='edit-transaction-icon'
                                 className='icon'
                                 onClick={async () => {
                                     setTransactionId(transaction.id)
@@ -84,6 +85,7 @@ export const TransactionsTable = () => {
                         </td>
                         <td>
                             <IoMdTrash 
+                                id='delete-transaction-icon'
                                 className='icon'
                                 onClick={() => {
                                     setTransactionId(transaction.id)

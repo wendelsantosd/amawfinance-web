@@ -42,6 +42,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
     }
 
     return <Modal
+        id='transaction-modal'
         isOpen={isOpen}
         onRequestClose={onRequestClose}
         overlayClassName='react-modal-overlay'
@@ -93,6 +94,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
 
             <TransactionTypeContainer>
                 <RadioBox
+                    id='btn-income'
                     disabled={loading}
                     type='button'
                     onClick={() => {
@@ -109,6 +111,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                 </RadioBox>
 
                 <RadioBox
+                    id='btn-expense'
                     disabled={loading}
                     type='button'
                     onClick={() => {
@@ -125,7 +128,8 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                 </RadioBox>
             </TransactionTypeContainer>
 
-            <button 
+            <button
+                id='btn-save-transaction'
                 disabled={loading}
                 className='button'
                 onClick={submit}

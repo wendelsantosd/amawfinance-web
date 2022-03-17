@@ -1,0 +1,12 @@
+{
+    "extends": "../tsconfig.json",
+    "include": [
+        "integration/*.ts",
+        "support/*.ts",
+        "../node_modules/cypress",
+        "integration/login.spec.js"
+    ],
+    "compilerOptions": {
+        "isolatedModules": false
+    }
+}

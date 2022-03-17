@@ -120,11 +120,16 @@ export const Login = () => {
         <Header isAuth={false} />
         <Form className='animate-up'>
             <TextHeaderForm className='title'>Entrar</TextHeaderForm>
-            <TextQuestion className='question'>
+            <TextQuestion 
+                className='question'
+            >
                 Não tem uma conta?
-                <span onClick={() => {
-                    if (!loading) navigate('/register')
-                }}>
+                <span
+                    id='redirect-register'
+                    onClick={() => {
+                        if (!loading) navigate('/register')
+                    }}
+                >
                     {' Clique aqui.'}
                 </span>
             </TextQuestion>
@@ -187,14 +192,18 @@ export const Login = () => {
 
             <TextQuestion className='question'>
                 Esqueceu sua senha?
-                <span onClick={() => {
-                    if (!loading) navigate('/recover-password')
-                }}>
+                <span 
+                    id='redirect-recover-password'
+                    onClick={() => {
+                        if (!loading) navigate('/recover-password')
+                    }}
+                >
                     {' Clique aqui.'}
                 </span>
             </TextQuestion>
 
             <PrimaryButton
+                id='btn-auth'
                 type='submit'
                 disabled={loading}
                 onClick={event => {
@@ -216,6 +225,7 @@ export const Login = () => {
                 render={renderProps =>
                     <GoogleButton>
                         <button
+                            id='btn-google-auth'
                             disabled={loading}
                             onClick={event => {
                                 event.preventDefault()
