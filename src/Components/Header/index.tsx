@@ -17,6 +17,7 @@ export const Header = ({ isAuth }: HeaderProps) => {
 
     return <Container>
         <DataLogo
+            id='data-logo'
             onClick={() => navigate('/')}
         >
             <img src={Logo} alt='Logo Amaw' />
@@ -25,6 +26,7 @@ export const Header = ({ isAuth }: HeaderProps) => {
 
         {isAuth ?
             <Info
+                id='info'
                 onClick={() => navigate('/profile')}
             >
                 <p>{user?.name}</p>
