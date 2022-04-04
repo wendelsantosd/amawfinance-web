@@ -22,7 +22,7 @@ export const Container = styled.div`
         margin-bottom: 2rem;
     }
 
-    input {
+    input, select {
         border: 3px solid var(--white-300);
         border-radius: 0.5rem;
         width: 100%;
@@ -32,6 +32,11 @@ export const Container = styled.div`
         padding-left: 0.5rem;
         font-weight: 500;
         margin-bottom: 1.5rem;
+        background: transparent;
+
+        &.category  {
+            margin-top: 1.2rem;
+        }
         
         &::placeholder {
             color: var(--grey-300);
@@ -45,7 +50,6 @@ export const Container = styled.div`
         justify-content: center;
         width: 100%;
         height: 3rem;
-        margin-top: 2rem;
         border-radius: 2.5rem;
         border: none;
         background: var(--blue-500);

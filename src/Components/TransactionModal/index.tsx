@@ -26,6 +26,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
         description: '',
         amount: 0,
         type: 'income',
+        category: '-'
     })
 
     const submit = async () => {
@@ -127,6 +128,31 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                     <img src={ExpenseIcon} alt='Despesa' />
                 </RadioBox>
             </TransactionTypeContainer>
+
+            {type === 'expense' ? 
+                <>
+                    <label htmlFor='category' className='sr-only'>Descrição</label>
+                    <select
+                        id='category'
+                        className='category'
+                        onChange={event => {
+                            const _transaction = transaction
+                            _transaction.category = event.target.value
+                            setTransaction(_transaction)
+                        }}
+                    >
+                        <option value=''>Selecione uma categoria</option>
+                        <option value='Moradia'>Moradia</option>
+                        <option value='Educação/Cultura'>Educação/Cultura</option>
+                        <option value='Alimentação'>Alimentação</option>
+                        <option value='Saúde'>Saúde</option>
+                        <option value='Transporte'>Transporte</option>
+                        <option value='Lazer'>Lazer</option>
+                        <option value='Vestuário'>Vestuário</option>
+                    </select></>    
+                : null
+            }
+           
 
             <button
                 id='btn-save-transaction'

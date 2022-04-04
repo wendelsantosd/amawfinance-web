@@ -130,6 +130,30 @@ export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: E
                 </RadioBox>
             </TransactionTypeContainer>
 
+            {type === 'expense' ? 
+                <>
+                    <label htmlFor='category' className='sr-only'>Descrição</label>
+                    <select
+                        id='category'
+                        className='category'
+                        onChange={event => {
+                            const _transaction = transaction
+                            _transaction.category = event.target.value
+                            setTransaction(_transaction)
+                        }}
+                    >
+                        <option value=''>Selecione uma categoria</option>
+                        <option value='Moradia' selected={transaction.category === 'Moradia'}>Moradia</option>
+                        <option value='Educação/Cultura' selected={transaction.category === 'Educação/Cultura'}>Educação/Cultura</option>
+                        <option value='Alimentação' selected={transaction.category === 'Alimentação'}>Alimentação</option>
+                        <option value='Saúde' selected={transaction.category === 'Saúde'}>Saúde</option>
+                        <option value='Transporte' selected={transaction.category === 'Transporte'}>Transporte</option>
+                        <option value='Lazer' selected={transaction.category === 'Lazer'}>Lazer</option>
+                        <option value='Vestuário' selected={transaction.category === 'Vestuário'}>Vestuário</option>
+                    </select></>    
+                : null
+            }
+
             <button
                 id='btn-edit-transaction'
                 disabled={loading}

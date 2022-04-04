@@ -53,6 +53,7 @@ export const TransactionsTable = () => {
                 <tr>
                     <th>Descrição</th>
                     <th>Valor</th>
+                    <th>Categoria</th>
                     <th>Data</th>
                 </tr>
             </thead>
@@ -67,6 +68,9 @@ export const TransactionsTable = () => {
                                 style: 'currency',
                                 currency: 'BRL'
                             }).format(transaction.amount)}
+                        </td>
+                        <td>
+                            {transaction.category}
                         </td>
                         <td>
                             {new Intl.DateTimeFormat('pt-BR')
