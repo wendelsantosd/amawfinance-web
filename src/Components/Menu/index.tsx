@@ -1,5 +1,6 @@
 import React from 'react'
 import { AiFillDollarCircle } from 'react-icons/ai'
+import { FaBell } from 'react-icons/fa'
 import { IoPerson } from 'react-icons/io5'
 import { MdInsertChart, MdLogout } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
@@ -24,6 +25,7 @@ export const Menu = ({ page }: MenuProps) => {
             <IoPerson className='icon-belongs-menu' />
             <p>Meus Dados</p>
         </Option>
+
         <Option
             id='option-transactions'
             isActive={page === 'transactions'}
@@ -32,6 +34,16 @@ export const Menu = ({ page }: MenuProps) => {
             <AiFillDollarCircle className='icon-belongs-menu' />
             <p>Transações</p>
         </Option>
+
+        <Option
+            id='option-notifications'
+            isActive={page === 'notifications'}
+            onClick={() => navigate('/notifications')}
+        >
+            <FaBell className='icon-belongs-menu' />
+            <p>Notificações</p>
+        </Option>
+
         <Option
             id='option-charts'
             isActive={page === 'charts'}
@@ -40,6 +52,7 @@ export const Menu = ({ page }: MenuProps) => {
             <MdInsertChart className='icon-belongs-menu' />
             <p>Gráficos</p>
         </Option>
+
         <Option
             id='option-logout'
             isActive={page === 'logout'}
