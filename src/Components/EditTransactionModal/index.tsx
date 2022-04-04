@@ -8,6 +8,7 @@ import CloseIcon from '../../assets/icons/close.svg'
 import IncomeIcon from '../../assets/icons/income.svg'
 import ExpenseIcon from '../../assets/icons/outcome.svg'
 import { Context } from '../../Contexts'
+import storage from '../../services/storage'
 import { Loading } from '../../styles/utils.styles'
 import { Container, RadioBox, TransactionTypeContainer } from './transactionModal.styles'
 
@@ -19,7 +20,7 @@ interface EditTransactionModalProps {
 
 
 export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: EditTransactionModalProps) => {
-    const { transaction, setTransaction, updateTransaction } = useContext(Context)
+    const { transaction, setTransaction, updateTransaction, createNotification } = useContext(Context)
     const [type, setType] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -34,6 +35,7 @@ export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: E
 
         if (result?.status === 200) {
             setLoading(false)
+            await createNotification(storage.read('user'))
             onRequestClose()
         } else {
             setLoading(false)

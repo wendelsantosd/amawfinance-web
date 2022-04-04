@@ -20,6 +20,7 @@ interface ContextData {
     transaction: any
     targetMonth: any
     targetYear: any
+    notifications: any
     setUser: React.Dispatch<any>
     setTransaction: React.Dispatch<any>
     setTargetMonth: React.Dispatch<any>
@@ -39,6 +40,9 @@ interface ContextData {
     // eslint-disable-next-line no-unused-vars
     updateTransaction: (id: string) => Promise<any>
     listTransactions: () => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    createNotification: (id: string) => Promise<any>
+    listNotifications: () => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -51,6 +55,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
     const [transaction, setTransaction] = useState<any>('')
     const [targetMonth, setTargetMonth] = useState(new Date().getMonth())
     const [targetYear, setTargetYear] = useState(new Date().getFullYear())
+    const [notifications, setNotifications] = useState<any>()
 
     useEffect(() => {
         (async () => {
@@ -198,6 +203,37 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
         return result
     }
+
+    const listNotifications = async () => {
+        const result = await api.request({
+            method: 'get',
+            route: '/notification/list-by-user-month-year',
+            query: {
+                id: storage.read('id'),
+                month: targetMonth,
+                year: targetYear
+            }
+        })
+
+        if (result?.status === 200) {
+            setNotifications(result?.data)
+        }
+    }
+
+    const createNotification = async (id: string) => {
+        const result = await api.request({
+            method: 'post',
+            route: `notification/create?id=${user.id}`,
+            query: { id }
+        })
+
+        if (result?.status === 201) {
+            await listNotifications()
+        }
+
+        return result
+    }
+
     
     return <Context.Provider value={{
         signed: user ? true: false, 
@@ -206,6 +242,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
         transaction,
         targetMonth,
         targetYear,
+        notifications,
         setUser,
         setTransaction,
         setTargetMonth,
@@ -218,7 +255,9 @@ export const ContextProvider = ({ children }: ContextProps) => {
         deleteTransaction,
         dataTransaction,
         updateTransaction,
-        listTransactions
+        listTransactions,
+        createNotification,
+        listNotifications
     }}>
         {children}
     </Context.Provider>

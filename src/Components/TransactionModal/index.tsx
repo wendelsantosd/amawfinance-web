@@ -8,6 +8,7 @@ import CloseIcon from '../../assets/icons/close.svg'
 import IncomeIcon from '../../assets/icons/income.svg'
 import ExpenseIcon from '../../assets/icons/outcome.svg'
 import { Context } from '../../Contexts'
+import storage from '../../services/storage'
 import { Loading } from '../../styles/utils.styles'
 import { Container, RadioBox, TransactionTypeContainer } from './transactionModal.styles'
 
@@ -19,7 +20,7 @@ interface NewTransactionModalProps {
 
 export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalProps) => {
     const [type, setType] = useState('income')
-    const { createTransaction } = useContext(Context)
+    const { createTransaction, createNotification } = useContext(Context)
     const [loading, setLoading] = useState(false)
 
     const [transaction, setTransaction] = useState({
@@ -35,6 +36,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
 
         if (result?.status === 201) {
             setLoading(false)
+            await createNotification(storage.read('user'))
             onRequestClose()
         } else {
             setLoading(false)
