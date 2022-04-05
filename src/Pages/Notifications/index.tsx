@@ -1,30 +1,37 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { Header } from '../../Components/Header'
 import { Menu } from '../../Components/Menu'
-import { Board, Container, Content } from './notifications.styles'
+import { Context } from '../../Contexts'
+import { Board, Container, Content, Notification } from './notifications.styles'
 export const Notifications = () => {
+    const { notifications } = useContext(Context)
+    console.log(notifications)
     return <Container>
         <Header isAuth />
         <Content>
             <Menu page={'notifications'} />
 
             <Board>
-                <div>
-                    <p className="time">Em 04/04/2022 às 20:00hs</p>
-                    
-                    <p className="message">
-                        Você já gastou 10% do seu salário.
-                    </p>
-                </div>
-
-                <div>
-                    <p className="time">Em 04/04/2022 às 20:00hs</p>
-                    
-                    <p className="message">
-                        Você já gastou 10% do seu salário.
-                    </p>
-                </div>
+                {notifications?.map((notification: any) => 
+                    <Notification
+                        key={notification.id}
+                        isGreen={notification.percentage < 30}
+                        isYellow={notification.percentage >= 30 && notification.percentage < 50}
+                        isOrange={notification.percentage >= 50 && notification.percentage < 80}
+                        isRed={notification.percentage >= 80}
+                    >
+                        <p className="time"> 
+                            {`Em 
+                            ${new Intl.DateTimeFormat('pt-BR').format(new Date(notification.created_at))}
+                            às
+                            ${new Date(notification.created_at).getHours()}:${new Date(notification.created_at).getMinutes()}hs`}
+                        </p>
+                        <p className="message">
+                            {notification.message}.
+                        </p>
+                    </Notification>
+                )}
             </Board>
         </Content>
     </Container>

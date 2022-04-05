@@ -69,6 +69,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
     useEffect(() => {
         listTransactions()
+        listNotifications()
     }, [])
 
     const userData = async () => {

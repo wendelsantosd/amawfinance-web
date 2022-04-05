@@ -28,12 +28,41 @@ export const Board = styled.div`
      background: transparent;
      box-shadow: 0px 0px 0px;
     }
+`
 
-    div {
+interface NotificationProps {
+   isGreen: boolean;
+   isYellow: boolean;
+   isOrange: boolean;
+   isRed: boolean;
+}
+
+export const Notification = styled.div<NotificationProps>`
         width: 100%;
-        border: 2px solid var(--green-300);
+        border: ${props => {
+        if (props.isGreen) {
+            return '2px solid #33cc95'
+        } else if (props.isYellow) {
+            return '2px solid #ffff40'
+        } else if (props.isOrange) {
+            return '2px solid #ed9121'
+        } else if (props.isRed) {
+            return '2px solid #e52e4d'
+        }
+    }};
+
         padding: 1rem;
-        background: ${transparentize(0.9, '#33cc95')};
+        background: ${props => {
+        if (props.isGreen) {
+            return transparentize(0.9, '#33cc95')
+        } else if (props.isYellow) {
+            return transparentize(0.9, '#ffff40')
+        } else if (props.isOrange) {
+            return transparentize(0.9, '#ed9121')
+        } else if (props.isRed) {
+            return transparentize(0.9, '#e52e4d')
+        }
+    }};
         margin-bottom: 1rem;
 
         .time {
@@ -46,5 +75,4 @@ export const Board = styled.div`
             color: var(--grey-300);
             font-weight: 700;
         }
-    }
 `
