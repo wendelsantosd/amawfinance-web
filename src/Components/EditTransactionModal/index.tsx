@@ -152,6 +152,7 @@ export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: E
                         <option value='Transporte' selected={transaction.category === 'Transporte'}>Transporte</option>
                         <option value='Lazer' selected={transaction.category === 'Lazer'}>Lazer</option>
                         <option value='Vestuário' selected={transaction.category === 'Vestuário'}>Vestuário</option>
+                        <option value='Outro' selected={transaction.category === 'Outro'}>Outro</option>
                     </select></>    
                 : null
             }

@@ -37,7 +37,6 @@ export const Profile = () => {
     }
 
     const validateData = () => {
-        console.log(user.phone.length)
         let _validateName = false
         let _validatePhone = false
 

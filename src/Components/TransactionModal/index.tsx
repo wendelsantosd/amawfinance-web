@@ -151,6 +151,7 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                         <option value='Transporte'>Transporte</option>
                         <option value='Lazer'>Lazer</option>
                         <option value='Vestuário'>Vestuário</option>
+                        <option value='Outro'>Outro</option>
                     </select></>    
                 : null
             }
