@@ -21,6 +21,7 @@ interface ContextData {
     targetMonth: any
     targetYear: any
     notifications: any
+    amount: any
     setUser: React.Dispatch<any>
     setTransaction: React.Dispatch<any>
     setTargetMonth: React.Dispatch<any>
@@ -43,6 +44,7 @@ interface ContextData {
     // eslint-disable-next-line no-unused-vars
     createNotification: (id: string) => Promise<any>
     listNotifications: () => Promise<any>
+    updateViewedNotification: () => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -56,6 +58,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
     const [targetMonth, setTargetMonth] = useState(new Date().getMonth())
     const [targetYear, setTargetYear] = useState(new Date().getFullYear())
     const [notifications, setNotifications] = useState<any>()
+    const [amount, setAmount] = useState<number>()
+    
 
     useEffect(() => {
         (async () => {
@@ -71,6 +75,17 @@ export const ContextProvider = ({ children }: ContextProps) => {
         listTransactions()
         listNotifications()
     }, [])
+
+    useEffect(() => {
+        let _amount = 0
+        notifications?.forEach((notification: any) => {
+            if (notification.viewed === false) {
+                _amount += 1
+            }
+        })
+
+        setAmount(_amount)
+    }, [notifications])
 
     const userData = async () => {
         const result = await api.request({
@@ -217,7 +232,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
         })
 
         if (result?.status === 200) {
-            setNotifications(result?.data)
+            setNotifications(result?.data) 
         }
     }
 
@@ -235,6 +250,18 @@ export const ContextProvider = ({ children }: ContextProps) => {
         return result
     }
 
+    const updateViewedNotification = async () => {
+        const result = await api.request({
+            method: 'patch',
+            route: `notification/update-viewed?id=${user.id}`,
+        })
+
+        if (result?.status === 200) {
+            await listNotifications()
+        }
+
+        return result
+    }
     
     return <Context.Provider value={{
         signed: user ? true: false, 
@@ -244,6 +271,7 @@ export const ContextProvider = ({ children }: ContextProps) => {
         targetMonth,
         targetYear,
         notifications,
+        amount,
         setUser,
         setTransaction,
         setTargetMonth,
@@ -258,7 +286,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
         updateTransaction,
         listTransactions,
         createNotification,
-        listNotifications
+        listNotifications,
+        updateViewedNotification
     }}>
         {children}
     </Context.Provider>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AiFillDollarCircle } from 'react-icons/ai'
 import { FaBell } from 'react-icons/fa'
 import { IoPerson } from 'react-icons/io5'
@@ -6,6 +6,7 @@ import { MdInsertChart, MdLogout } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 
 import packageInfo from '../../../package.json'
+import { Context } from '../../Contexts'
 import storage from '../../services/storage'
 import { Container, Option } from './menu.styles'
 
@@ -15,6 +16,7 @@ interface MenuProps {
 
 export const Menu = ({ page }: MenuProps) => {
     const navigate = useNavigate()
+    const { amount,  updateViewedNotification } = useContext(Context)
 
     return <Container>
         <Option
@@ -38,10 +40,19 @@ export const Menu = ({ page }: MenuProps) => {
         <Option
             id='option-notifications'
             isActive={page === 'notifications'}
-            onClick={() => navigate('/notifications')}
+            onClick={async () => {
+                await updateViewedNotification()
+                navigate('/notifications')
+            }}
         >
             <FaBell className='icon-belongs-menu' />
             <p>Notificações</p>
+            
+            {amount ? 
+                <p>{amount}</p>    
+                :
+                null
+            }
         </Option>
 
         <Option

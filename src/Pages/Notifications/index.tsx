@@ -6,7 +6,6 @@ import { Context } from '../../Contexts'
 import { Board, Container, Content, Notification } from './notifications.styles'
 export const Notifications = () => {
     const { notifications } = useContext(Context)
-    console.log(notifications)
     return <Container>
         <Header isAuth />
         <Content>
