@@ -291,14 +291,14 @@ export const Profile = () => {
                         />
 
                         {showPassword ?
-                            <FaEyeSlash 
-                                className='eye-icon'
-                                onClick={() => setShowPassword(false)}
-                            />
-                            :
                             <FaEye 
                                 className='eye-icon'
                                 onClick={() => setShowPassword(true)}
+                            /> 
+                            :
+                            <FaEyeSlash 
+                                className='eye-icon'
+                                onClick={() => setShowPassword(false)}
                             />
                         }
                     </div>

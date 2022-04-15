@@ -161,14 +161,14 @@ export const Register = () => {
                         }}
                     />
                     {showPassword ?
-                        <FaEyeSlash
-                            className='eye-icon'
-                            onClick={() => setShowPassword(false)}
-                        />
-                        :
-                        <FaEye
+                        <FaEye 
                             className='eye-icon'
                             onClick={() => setShowPassword(true)}
+                        /> 
+                        :
+                        <FaEyeSlash 
+                            className='eye-icon'
+                            onClick={() => setShowPassword(false)}
                         />
                     }
                 </ContainerPasswordInput>
