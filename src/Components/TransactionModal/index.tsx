@@ -47,7 +47,15 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
     return <Modal
         id='transaction-modal'
         isOpen={isOpen}
-        onRequestClose={onRequestClose}
+        onRequestClose={() => {
+            onRequestClose()
+            setTransaction({
+                description: '',
+                amount: 0,
+                type: 'income',
+                category: '-'
+            })
+        }}
         overlayClassName='react-modal-overlay'
         className='react-modal-content'
     >
@@ -161,7 +169,16 @@ export const TransactionModal = ({ isOpen, onRequestClose}: NewTransactionModalP
                 id='btn-save-transaction'
                 disabled={loading}
                 className='button'
-                onClick={submit}
+                onClick={() => {
+                    submit()
+                    setTransaction({
+                        description: '',
+                        amount: 0,
+                        type: 'income',
+                        category: '-'
+                    })
+                    setType('income')
+                }}
             >
                 {loading ?
                     <Loading>
