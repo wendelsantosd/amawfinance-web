@@ -8,6 +8,7 @@ import CloseIcon from '../../assets/icons/close.svg'
 import IncomeIcon from '../../assets/icons/income.svg'
 import ExpenseIcon from '../../assets/icons/outcome.svg'
 import { Context } from '../../Contexts'
+import storage from '../../services/storage'
 import { Loading } from '../../styles/utils.styles'
 import { Container, RadioBox, TransactionTypeContainer } from './transactionModal.styles'
 
@@ -19,7 +20,7 @@ interface EditTransactionModalProps {
 
 
 export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: EditTransactionModalProps) => {
-    const { transaction, setTransaction, updateTransaction } = useContext(Context)
+    const { transaction, setTransaction, updateTransaction, createNotification } = useContext(Context)
     const [type, setType] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -34,6 +35,7 @@ export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: E
 
         if (result?.status === 200) {
             setLoading(false)
+            await createNotification(storage.read('user'))
             onRequestClose()
         } else {
             setLoading(false)
@@ -129,6 +131,31 @@ export const EditTransactionModal = ({ isOpen, onRequestClose, transactionId}: E
                     <img src={ExpenseIcon} alt='Despesa' />
                 </RadioBox>
             </TransactionTypeContainer>
+
+            {type === 'expense' ? 
+                <>
+                    <label htmlFor='category' className='sr-only'>Descrição</label>
+                    <select
+                        id='category'
+                        className='category'
+                        onChange={event => {
+                            const _transaction = transaction
+                            _transaction.category = event.target.value
+                            setTransaction(_transaction)
+                        }}
+                    >
+                        <option value=''>Selecione uma categoria</option>
+                        <option value='Moradia' selected={transaction.category === 'Moradia'}>Moradia</option>
+                        <option value='Educação/Cultura' selected={transaction.category === 'Educação/Cultura'}>Educação/Cultura</option>
+                        <option value='Alimentação' selected={transaction.category === 'Alimentação'}>Alimentação</option>
+                        <option value='Saúde' selected={transaction.category === 'Saúde'}>Saúde</option>
+                        <option value='Transporte' selected={transaction.category === 'Transporte'}>Transporte</option>
+                        <option value='Lazer' selected={transaction.category === 'Lazer'}>Lazer</option>
+                        <option value='Vestuário' selected={transaction.category === 'Vestuário'}>Vestuário</option>
+                        <option value='Outro' selected={transaction.category === 'Outro'}>Outro</option>
+                    </select></>    
+                : null
+            }
 
             <button
                 id='btn-edit-transaction'

@@ -20,6 +20,8 @@ interface ContextData {
     transaction: any
     targetMonth: any
     targetYear: any
+    notifications: any
+    amount: any
     setUser: React.Dispatch<any>
     setTransaction: React.Dispatch<any>
     setTargetMonth: React.Dispatch<any>
@@ -39,6 +41,10 @@ interface ContextData {
     // eslint-disable-next-line no-unused-vars
     updateTransaction: (id: string) => Promise<any>
     listTransactions: () => Promise<any>
+    // eslint-disable-next-line no-unused-vars
+    createNotification: (id: string) => Promise<any>
+    listNotifications: () => Promise<any>
+    updateViewedNotification: () => Promise<any>
 }
 
 export const Context = createContext<ContextData >(
@@ -51,6 +57,9 @@ export const ContextProvider = ({ children }: ContextProps) => {
     const [transaction, setTransaction] = useState<any>('')
     const [targetMonth, setTargetMonth] = useState(new Date().getMonth())
     const [targetYear, setTargetYear] = useState(new Date().getFullYear())
+    const [notifications, setNotifications] = useState<any>()
+    const [amount, setAmount] = useState<number>()
+    
 
     useEffect(() => {
         (async () => {
@@ -64,7 +73,19 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
     useEffect(() => {
         listTransactions()
+        listNotifications()
     }, [])
+
+    useEffect(() => {
+        let _amount = 0
+        notifications?.forEach((notification: any) => {
+            if (notification.viewed === false) {
+                _amount += 1
+            }
+        })
+
+        setAmount(_amount)
+    }, [notifications])
 
     const userData = async () => {
         const result = await api.request({
@@ -198,6 +219,49 @@ export const ContextProvider = ({ children }: ContextProps) => {
 
         return result
     }
+
+    const listNotifications = async () => {
+        const result = await api.request({
+            method: 'get',
+            route: '/notification/list-by-user-month-year',
+            query: {
+                id: storage.read('id'),
+                month: targetMonth,
+                year: targetYear
+            }
+        })
+
+        if (result?.status === 200) {
+            setNotifications(result?.data) 
+        }
+    }
+
+    const createNotification = async (id: string) => {
+        const result = await api.request({
+            method: 'post',
+            route: `notification/create?id=${user.id}`,
+            query: { id }
+        })
+
+        if (result?.status === 201) {
+            await listNotifications()
+        }
+
+        return result
+    }
+
+    const updateViewedNotification = async () => {
+        const result = await api.request({
+            method: 'patch',
+            route: `notification/update-viewed?id=${user.id}`,
+        })
+
+        if (result?.status === 200) {
+            await listNotifications()
+        }
+
+        return result
+    }
     
     return <Context.Provider value={{
         signed: user ? true: false, 
@@ -206,6 +270,8 @@ export const ContextProvider = ({ children }: ContextProps) => {
         transaction,
         targetMonth,
         targetYear,
+        notifications,
+        amount,
         setUser,
         setTransaction,
         setTargetMonth,
@@ -218,7 +284,10 @@ export const ContextProvider = ({ children }: ContextProps) => {
         deleteTransaction,
         dataTransaction,
         updateTransaction,
-        listTransactions
+        listTransactions,
+        createNotification,
+        listNotifications,
+        updateViewedNotification
     }}>
         {children}
     </Context.Provider>

@@ -161,12 +161,12 @@ export const Register = () => {
                         }}
                     />
                     {showPassword ?
-                        <FaEyeSlash
+                        <FaEye 
                             className='eye-icon'
                             onClick={() => setShowPassword(false)}
-                        />
+                        /> 
                         :
-                        <FaEye
+                        <FaEyeSlash 
                             className='eye-icon'
                             onClick={() => setShowPassword(true)}
                         />
@@ -196,12 +196,12 @@ export const Register = () => {
                     />
 
                     {showPassword ?
-                        <FaEyeSlash
+                        <FaEye 
                             className='eye-icon'
                             onClick={() => setShowPassword(false)}
-                        />
+                        /> 
                         :
-                        <FaEye
+                        <FaEyeSlash 
                             className='eye-icon'
                             onClick={() => setShowPassword(true)}
                         />
