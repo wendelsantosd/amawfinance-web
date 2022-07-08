@@ -173,12 +173,12 @@ export const Login = () => {
                 {showPassword ?
                     <FaEye 
                         className='eye-icon'
-                        onClick={() => setShowPassword(true)}
+                        onClick={() => setShowPassword(false)}
                     /> 
                     :
                     <FaEyeSlash 
                         className='eye-icon'
-                        onClick={() => setShowPassword(false)}
+                        onClick={() => setShowPassword(true)}
                     />
                 }
             </ContainerPasswordInput>
