@@ -19,7 +19,7 @@ Amaw Finance Web
 
 # Overview
 
-This module is the view of the Amaw Finance platform, which is a personal financial control platform. The graphical interface was developed using ReactJS, written in Typescript.
+This module is the view of the Amaw Finance platform, which is a personal financial control platform. The version web was developed using ReactJS, written in Typescript.
 
 # Contribute
 
@@ -29,7 +29,7 @@ This module is the view of the Amaw Finance platform, which is a personal financ
 git clone https://github.com/wendelsantosd/amawfinance-web.git
 ```
 
-2. Enter the amawfinance-api directory:
+2. Enter the amawfinance-web directory:
 
 ```shell
 cd amawfinance-web
