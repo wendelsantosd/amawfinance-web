@@ -13,7 +13,7 @@ Amaw Finance Web
 
 <img src="https://img.shields.io/badge/React-17.0.2-61DBFB">
 
-<img src="https://img.shields.io/badge/Projeto-Amaw%20Finance-B22222">
+<img src="https://img.shields.io/badge/Project-Amaw%20Finance-B22222">
 
 </div>
 
